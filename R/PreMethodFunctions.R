@@ -118,7 +118,7 @@ create_sectors_modified <- function(df) {
 #' @param scale Numeric value for scaling.
 #' 
 #' @return A data frame containing sector data based on scaled inputs.
-create_sectors_for_scaled <- function(df, scale) {
+create_sectors_for_scaled <- function(df, scale, k = 8) {
   df <- df %>%
     group_by(segment_id) %>%
     mutate(x_location = x_scaled, y_location = y_scaled, 
@@ -146,4 +146,24 @@ create_sectors_for_scaled <- function(df, scale) {
 generate_scale_factors_all_outside <- function(ks) {
   scale_factors <- c(seq(from = 1, to = 2, by = 1/(ks+1)))
   return(scale_factors)
+}
+
+
+#' Generate Scaled Dataframe
+#' 
+#' Creates a dataframe with scaled polygon coordinates based on a given scale factor.
+#' 
+#' @param s Numeric scale factor.
+#' @param df_circle Dataframe containing circle coordinates and segment IDs.
+#' @param k Numeric value for scaling in the main function.
+#' 
+#' @return A dataframe with scaled coordinates.
+create_scaled_df <- function(s, df_circle, k = 8) {
+  df_circle %>%
+    group_by(segment_id) %>%
+    mutate(x_scaled = x_central + s * (x_location - x_central),
+           y_scaled = y_central + s * (y_location - y_central),
+           scale = s,
+           concentric_id = paste0(segment_id, "_", s * (k + 1))) %>%
+    ungroup()
 }

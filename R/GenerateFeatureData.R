@@ -10,7 +10,7 @@
 #'
 #' @return A dataframe containing the processed feature data.
 #' @export
-GenerateFeatureData <- function(me, assayName) {
+GenerateFeatureData <- function(me, assayName, k = 8) {
   # Ensure assayName is valid
   if (!assayName %in% c("sub-sector", "sub-concentric", 'sub-combo', 
                         "super-concentric", "super-combo")) {
@@ -54,19 +54,10 @@ GenerateFeatureData <- function(me, assayName) {
     df_circle = results$df_circle
     
     # Define the number of polygons
-    k <- 8
     scale_factors <- generate_scale_factors_all(k)
     
     # Generate a dataframe with the scaled polygons
-    df_concentric_initial <- map_dfr(scale_factors, function(s) {
-      df_circle %>%
-        group_by(segment_id) %>%
-        mutate(x_scaled = x_central + s * (x_location - x_central),
-               y_scaled = y_central + s * (y_location - y_central),
-               scale = s,
-               concentric_id = paste0(segment_id, '_', s*(k+1))) %>%
-        ungroup()
-    })
+    df_concentric_initial <- map_dfr(scale_factors, ~create_scaled_df(.x, df_circle, k))
     
     # Select required columns
     df_concentric <- df_concentric_initial %>%
@@ -83,19 +74,10 @@ GenerateFeatureData <- function(me, assayName) {
     df_circle = results$df_circle
     
     # Define the number of polygons
-    k <- 8
     scale_factors <- generate_scale_factors_all(k)
     
     # Generate a dataframe with the scaled polygons
-    df_concentric_initial <- map_dfr(scale_factors, function(s) {
-      df_circle %>%
-        group_by(segment_id) %>%
-        mutate(x_scaled = x_central + s * (x_location - x_central),
-               y_scaled = y_central + s * (y_location - y_central),
-               scale = s,
-               concentric_id = paste0(segment_id, '_', s*(k+1))) %>%
-        ungroup()
-    })
+    df_concentric_initial <- map_dfr(scale_factors, ~create_scaled_df(.x, df_circle, k))
     
     # Remove duplicate boundary points for each segment_id
     df_concentric_initial <- df_concentric_initial %>%
@@ -125,19 +107,10 @@ GenerateFeatureData <- function(me, assayName) {
     df_circle_super = results_super$df_circle
     
     # Define the number of polygons
-    k_super <- 8
-    scale_factors_outside <- generate_scale_factors_all_outside(k_super)
+    scale_factors_outside <- generate_scale_factors_all_outside(k)
     
     # Generate a dataframe with the scaled polygons for outside boundaries
-    df_concentric_super_initial <- map_dfr(scale_factors_outside, function(s) {
-      df_circle_super %>%
-        group_by(segment_id) %>%
-        mutate(x_scaled = x_central + s * (x_location - x_central),
-               y_scaled = y_central + s * (y_location - y_central),
-               scale = s,
-               concentric_id = paste0(segment_id, '_', (k_super + 1) * s)) %>%
-        ungroup()
-    })
+    df_concentric_super_initial <- map_dfr(scale_factors_outside, ~create_scaled_df(.x, df_circle_super, k))
     
     # Select required columns
     df_concentric_super <- df_concentric_super_initial %>%
@@ -155,19 +128,10 @@ GenerateFeatureData <- function(me, assayName) {
     df_circle_super = results_super$df_circle
     
     # Define the number of polygons
-    k_super <- 8
-    scale_factors_outside <- generate_scale_factors_all_outside(k_super)
+    scale_factors_outside <- generate_scale_factors_all_outside(k)
     
     # Generate a dataframe with the scaled polygons for outside boundaries
-    df_concentric_super_initial <- map_dfr(scale_factors_outside, function(s) {
-      df_circle_super %>%
-        group_by(segment_id) %>%
-        mutate(x_scaled = x_central + s * (x_location - x_central),
-               y_scaled = y_central + s * (y_location - y_central),
-               scale = s,
-               concentric_id = paste0(segment_id, '_', (k_super + 1) * s)) %>%
-        ungroup()
-    })
+    df_concentric_super_initial <- map_dfr(scale_factors_outside, ~create_scaled_df(.x, df_circle_super, k))
     
     # Remove duplicate boundary points for each segment_id
     df_concentric_super_initial <- df_concentric_super_initial %>%

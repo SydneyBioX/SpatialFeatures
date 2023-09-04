@@ -10,7 +10,6 @@
 #' @return A matrix containing the counts data.
 #' @export
 CountsMatrix <- function(me, assayName) {
-  # me = loadBoundariesToME(me)
   # Ensure assayName is valid
   if (!assayName %in% c("sub-sector", "sub-concentric", 'sub-combo', 
                         "super-concentric", "super-combo")) {

@@ -19,7 +19,7 @@ loadBoundariesToME <- function(me) {
   for (assayName in assay_names) {
     
     # Generate the data using the GenerateFeatureData function
-    df_tmp <- GenerateFeatureData(me, assayName)
+    df_tmp <- GenerateFeatureData(me, assayName, k = 8)
     
     # Modify column names based on the given logic (need to update after debug of Function dataframeToMEList)
     df_tmp$segment_id <- df_tmp$area_id
