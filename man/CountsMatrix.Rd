@@ -2,20 +2,25 @@
 % Please edit documentation in R/CountsMatrix.R
 \name{CountsMatrix}
 \alias{CountsMatrix}
-\title{Compute Counts Matrix for Specified Assay Name}
+\title{Extract Counts Matrix from Molecule Experiment based on Assay Type}
 \usage{
-CountsMatrix(me, assayName)
+CountsMatrix(assayName, counts_matrix)
 }
 \arguments{
-\item{me}{A data object that contains the input data.}
+\item{assayName}{A character string indicating the assay type. Supported values include
+"sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
 
-\item{assayName}{A character string specifying the assay name. It must be one
-of "sub-sector", "sub-concentric", "sub-combo", "super-concentric", or
-"super-combo".}
+\item{me}{A Molecule Experiment object.}
 }
 \value{
-A matrix containing the counts data.
+A counts matrix corresponding to the specified assay type.
 }
 \description{
-This function calculates the counts matrix for the specified assay name.
+This function retrieves a counts matrix from a Molecule Experiment object based on the given assay type.
+}
+\examples{
+\dontrun{
+# Assuming `data_obj` is your Molecule Experiment object
+cm = CountsMatrix(data_obj, assayName = "sub-sector")
+}
 }

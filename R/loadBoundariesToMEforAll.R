@@ -24,7 +24,7 @@
 #' enriched_data_obj <- loadBoundariesToME(data_obj)
 #' }
 
-loadBoundariesToME <- function(me, k = 5, r = 6) {
+loadBoundariesToMEforAll <- function(me, k = 5, r = 6) {
   
   regions_segments <- split_rectangle(me)
   
@@ -111,7 +111,6 @@ loadBoundariesToME <- function(me, k = 5, r = 6) {
     return(me_copy)
   }
   
-  # Only process when i = 6
   me_copy_r <- process_segment(r)
   
   return(me_copy_r)

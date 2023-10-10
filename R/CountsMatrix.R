@@ -1,39 +1,40 @@
-#' Compute Counts Matrix for Specified Assay Name
+#' Extract Counts Matrix from Molecule Experiment based on Assay Type
 #'
-#' This function calculates the counts matrix for the specified assay name.
-#' 
-#' @param me A data object that contains the input data.
-#' @param assayName A character string specifying the assay name. It must be one 
-#'   of "sub-sector", "sub-concentric", "sub-combo", "super-concentric", or 
-#'   "super-combo".
+#' @description 
+#' This function retrieves a counts matrix from a Molecule Experiment object based on the given assay type.
 #'
-#' @return A matrix containing the counts data.
+#' @param me A Molecule Experiment object.
+#' @param assayName A character string indicating the assay type. Supported values include 
+#' "sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".
+#'
+#' @return A counts matrix corresponding to the specified assay type.
 #' @export
-CountsMatrix <- function(me, assayName) {
+#' @importFrom MoleculeExperiment countMolecules
+#' @examples
+#' \dontrun{
+#' # Assuming `data_obj` is your Molecule Experiment object
+#' cm = CountsMatrix(data_obj, assayName = "sub-sector")
+#' }
+CountsMatrix <- function(assayName, counts_matrix) {
   # Ensure assayName is valid
-  if (!assayName %in% c("sub-sector", "sub-concentric", 'sub-combo', 
-                        "super-concentric", "super-combo")) {
+  if (!assayName %in% c("sub_sector", "sub_concentric", 'sub_combo', "super_sector", "super_concentric", "super_combo")) {
     stop("Invalid assayName provided!")
   }
-  
-  # Assuming 'me' is globally available or you should pass it as an argument
-  spe = countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, buffer = 0, matrixOnly = FALSE, nCores = 1)
-  
-  # Extract the counts matrix from the spe object
-  counts_matrix <- counts(spe)
-  
+
   # Determine which method to use for counts matrix transformation
-  if (assayName == "sub-sector") {
+  if (assayName == "sub_sector") {
     return(counts_matrix)
-  } else if (assayName == "sub-concentric") {
+  } else if (assayName == "sub_concentric") {
     return(annuli_counts(counts_matrix))
-  } else if (assayName == "sub-combo") {
+  } else if (assayName == "sub_combo") {
     return(combo_counts(counts_matrix))
-  } else if (assayName == "super-concentric") {
+  } else if (assayName == "super_sector") {
+    return(counts_matrix)
+  } else if (assayName == "super_concentric") {
     # Convert to annuli counts and then remove inner polygons
     out_concentric_super <- annuli_counts(counts_matrix)
     return(delete_inner(out_concentric_super))
-  } else if (assayName == "super-combo") {
+  } else if (assayName == "super_combo") {
     # Convert to combo counts and then remove inner polygons
     out_combo_super <- combo_counts(counts_matrix)
     return(delete_inner(out_combo_super))

@@ -2,21 +2,47 @@
 % Please edit documentation in R/GenerateFeatureData.R
 \name{GenerateFeatureData}
 \alias{GenerateFeatureData}
-\title{Generate Feature Data Based on Assay Name}
+\title{Generate Feature Data Based on Assay Type Combining Various Polygon Assays}
 \usage{
-GenerateFeatureData(me, assayName)
+GenerateFeatureData(me, k = 8)
 }
 \arguments{
-\item{me}{A data object that contains the input data.}
+\item{me}{The input data object. This object contains spatial information,
+typically regarding segments or regions of interest.}
 
-\item{assayName}{A character string specifying the assay name. It must be one
-of "sub-sector", "sub-concentric", "sub-combo", "super-concentric", or
-"super-combo".}
+\item{k}{A numeric value indicating the scaling factor for concentric polygons.
+Defaults to 8.}
 }
 \value{
-A dataframe containing the processed feature data.
+A list containing dataframes for each assay type:
+\itemize{
+\item \code{sub_sector}: Feature data for sub-sector polygons.
+\item \code{sub_concentric}: Feature data for sub-concentric polygons.
+\item \code{sub_combo}: Feature data for sub-combo polygons.
+\item \code{super_concentric}: Feature data for super-concentric polygons.
+\item \code{super_combo}: Feature data for super-combo polygons.
+}
 }
 \description{
-This function processes the input data according to the specified assay name
-and returns the respective feature data.
+This comprehensive function processes the given data (\code{me}) and returns feature
+data based on multiple assay types. The supported assays encapsulated within
+this function include:
+\itemize{
+\item Sub-sector polygons
+\item Sub-concentric polygons
+\item Sub-combo polygons
+\item Super-concentric polygons
+\item Super-combo polygons
+}
+
+These assays represent various spatial subdivisions or transformations, each
+addressing unique feature characteristics. The results from each assay are
+combined and returned as a list of dataframes.
+}
+\examples{
+\dontrun{
+# Assuming `data_obj` is your data
+feature_data_list <- GenerateFeatureData(data_obj)
+sub_sector_data <- feature_data_list$sub_sector
+}
 }

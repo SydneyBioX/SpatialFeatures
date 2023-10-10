@@ -2,20 +2,25 @@
 % Please edit documentation in R/EntropyMatrix.R
 \name{EntropyMatrix}
 \alias{EntropyMatrix}
-\title{Compute Entropy Matrix for Specified Assay Name}
+\title{Calculate the Entropy of a Counts Matrix}
 \usage{
-EntropyMatrix(me, assayName)
+EntropyMatrix(me, assayName, ...)
 }
 \arguments{
-\item{me}{A data object that contains the input data.}
+\item{me}{A Molecule Experiment object.}
 
-\item{assayName}{A character string specifying the assay name. It must be one
-of "sub-sector", "sub-concentric", "sub-combo", "super-concentric", or
-"super-combo".}
+\item{assayName}{A character string specifying the assay type. Supported values include
+"sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
 }
 \value{
-A matrix containing the entropy data.
+A matrix representing the entropy values corresponding to the given assay type.
 }
 \description{
-This function calculates the entropy matrix for the specified assay name.
+This function computes the entropy of a counts matrix from a Molecule Experiment object based on the given assay type.
+}
+\examples{
+\dontrun{
+# Assuming `data_obj` is your Molecule Experiment object
+em = EntropyMatrix(data_obj, assayName = "sub-sector")
+}
 }

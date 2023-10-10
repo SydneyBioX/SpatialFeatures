@@ -2,21 +2,25 @@
 % Please edit documentation in R/BindRows.R
 \name{BindRows}
 \alias{BindRows}
-\title{Bind Rows of Multiple Methods into a Single Dataframe}
+\title{Bind Rows of Converted Entropy Matrix Data}
 \usage{
-BindRows(me, methods)
+BindRows(me, methods, ...)
 }
 \arguments{
-\item{me}{A data object that contains the input data.}
+\item{me}{A Molecule Experiment object.}
 
-\item{methods}{A character vector containing the names of the methods to be
-processed. They must be among "sub-sector", "sub-concentric", "sub-combo",
-"super-concentric", and "super-combo".}
+\item{methods}{A character vector specifying the assay types to process. Supported values include
+"sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
 }
 \value{
-A dataframe in long format.
+A dataframe with bound rows from the provided methods.
 }
 \description{
-This function binds rows of multiple processing methods into a single
-dataframe in long format.
+This function binds rows of entropy matrix data from a Molecule Experiment object for multiple methods into a single dataframe.
+}
+\examples{
+\dontrun{
+# Assuming `data_obj` is your Molecule Experiment object
+bound_df = BindRows(data_obj, methods = c("sub-sector", "sub-concentric"))
+}
 }
