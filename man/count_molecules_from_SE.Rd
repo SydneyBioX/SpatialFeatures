@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities_MCC.R
 \name{count_molecules_from_SE}
 \alias{count_molecules_from_SE}
-\title{Count molecules in a SpatialExperiment object.}
+\title{Count Molecules in SpatialExperiment}
 \usage{
 count_molecules_from_SE(me)
 }
@@ -10,8 +10,8 @@ count_molecules_from_SE(me)
 \item{me}{A SpatialExperiment object.}
 }
 \value{
-A cell object with counted molecules.
+An object with molecule counts for each cell.
 }
 \description{
-Count molecules in a SpatialExperiment object.
+Count Molecules in SpatialExperiment
 }

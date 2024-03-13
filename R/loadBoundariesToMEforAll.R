@@ -24,49 +24,44 @@
 #' enriched_data_obj <- loadBoundariesToME(data_obj)
 #' }
 
-loadBoundariesToMEforAll <- function(me, k = 5, r = 6) {
+loadBoundariesToMEforAll <- function(me, k = 5) {
   
   regions_segments <- split_rectangle(me)
   
-  # List of assay names to process
-  assay_names <- c("sub_sector", "sub_concentric", "sub_combo", 
-                   "super_sector", "super_concentric", "super_combo")
+  assay_names <- c("sub_sector", "sub_concentric", 
+                   "super_sector", "super_concentric")
   
-  # Generate all the data using the GenerateFeatureData function
   results_all <- SpatialFeatures::GenerateFeatureData(me, k = k)
   
   df_boundaries <- MoleculeExperiment::boundaries(me, assayName = "cell", flatten = TRUE)
   
-  # Read the molecule data
   df_molecule <- MoleculeExperiment::molecules(me, assayName = "detected", flatten = TRUE)
   
   process_segment <- function(i) {
-    # List to store the results for each assay name
     results_list <- list()
     moleculesMEList_current <- list()
-    
     boundariesMEList_current <- list()
+    
     df_bdy = split_dataframe_by_region(df_boundaries, regions_segments)[[i]]
     
+    if(nrow(df_bdy) == 0) {
+      return("null")
+    }
+    
     boundariesMEList_current <- dataframeToMEList(df = df_bdy, dfType = "boundaries", assayName = "cell", 
-                                                 sampleCol = "sample_id", factorCol = "segment_id", 
-                                                 xCol = "x_location", yCol = "y_location", 
-                                                 keepCols = "essential", scaleFactor = 1)
+                                                  sampleCol = "sample_id", factorCol = "segment_id", 
+                                                  xCol = "x_location", yCol = "y_location", 
+                                                  keepCols = "essential", scaleFactor = 1)
     
     for (assayName in assay_names) {
-      
-      # Split the dataframe based on region
       df_tmp <- split_dataframe_by_region(results_all[[assayName]], regions_segments)[[i]]
       
-      # Check if the data frame is empty
       if (nrow(df_tmp) == 0) next
       
-      # Modify column names based on the given logic
       df_tmp$segment_id <- df_tmp$area_id
       df_tmp$x_location <- df_tmp$x_section
       df_tmp$y_location <- df_tmp$y_section
       
-      # Filter the location of Molecules data
       if (assayName == "super_sector") {
         coord_ranges <- df_tmp %>%
           dplyr::group_by(sample_id) %>%
@@ -91,7 +86,6 @@ loadBoundariesToMEforAll <- function(me, k = 5, r = 6) {
                                                      yCol = "y_coords")
       }
       
-      # Convert to ME List using dataframeToMEList function 
       results_list[[assayName]] <- dataframeToMEList(df = df_tmp, dfType = "boundaries", assayName = assayName, 
                                                      sampleCol = "sample_id", factorCol = "segment_id", 
                                                      xCol = "x_location", yCol = "y_location", 
@@ -103,7 +97,6 @@ loadBoundariesToMEforAll <- function(me, k = 5, r = 6) {
       boundaries = boundariesMEList_current
     )
     
-    # Set the boundaries for each assay in me_copy
     for (assay in assay_names) {
       boundaries(me_copy, assay) <- results_list[[assay]]
     }
@@ -111,10 +104,11 @@ loadBoundariesToMEforAll <- function(me, k = 5, r = 6) {
     return(me_copy)
   }
   
-  me_copy_r <- process_segment(r)
+  me_list <- lapply(1:12, process_segment)
   
-  return(me_copy_r)
+  return(me_list)
 }
+
 
 # loadBoundariesToME <- function(me, k = 8) {
 #   

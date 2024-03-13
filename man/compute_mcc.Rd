@@ -2,16 +2,16 @@
 % Please edit documentation in R/utilities_MCC.R
 \name{compute_mcc}
 \alias{compute_mcc}
-\title{Compute Matthews Correlation Coefficient (MCC) for a given 2x2 table.}
+\title{Compute Matthews Correlation Coefficient}
 \usage{
 compute_mcc(table)
 }
 \arguments{
-\item{table}{A 2x2 matrix or table.}
+\item{table}{A 2x2 contingency table.}
 }
 \value{
-The computed MCC value.
+The Matthews correlation coefficient calculated from the contingency table.
 }
 \description{
-Compute Matthews Correlation Coefficient (MCC) for a given 2x2 table.
+Compute Matthews Correlation Coefficient
 }

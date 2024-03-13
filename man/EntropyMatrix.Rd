@@ -4,7 +4,7 @@
 \alias{EntropyMatrix}
 \title{Calculate the Entropy of a Counts Matrix}
 \usage{
-EntropyMatrix(me, assayName, ...)
+EntropyMatrix(me, assayNames, ...)
 }
 \arguments{
 \item{me}{A Molecule Experiment object.}

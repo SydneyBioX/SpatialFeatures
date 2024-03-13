@@ -3,10 +3,6 @@
 # ==============================================================================
 
 # Required Libraries
-#' @importFrom dplyr %>% group_by mutate ungroup arrange
-#' @importFrom tidyr group_split
-#' @importFrom stringr str_extract
-#' @importFrom stats entropy
 
 #' Extract boundaries from a given object
 #'
@@ -108,7 +104,7 @@ create_sectors_modified <- function(df) {
 #' @param scale A numeric scale factor.
 #' @param k A numeric value, defaulting to 8.
 #' @return A data frame of sectors for scaled values.
-create_sectors_for_scaled <- function(df, scale, k = 8) {
+create_sectors_for_scaled <- function(df, scale, k = 5) {
   # Initial transformations
   df <- df %>%
     mutate(x_location = x_scaled, y_location = y_scaled) %>%
@@ -130,8 +126,8 @@ create_sectors_for_scaled <- function(df, scale, k = 8) {
 #'
 #' @param ks A numeric value.
 #' @return A vector of scale factors for outside values.
-generate_scale_factors_all_outside <- function(ks) {
-  scale_factors <- c(seq(from = 1, to = 2, by = 1/(ks+1)))
+generate_scale_factors_all_outside <- function(k) {
+  scale_factors <- c(seq(from = 1, to = 2, by = 1/(k+1)))
   return(scale_factors)
 }
 
@@ -141,8 +137,30 @@ generate_scale_factors_all_outside <- function(ks) {
 #' @param df_circle A data frame to scale.
 #' @param k A numeric value, defaulting to 8.
 #' @return A scaled data frame.
-create_scaled_df <- function(s, df_circle, k = 8) {
+create_scaled_df_sub <- function(s, df_circle, k = 5) {
   scaling_factor <- s * (k + 1)
+  
+  df_circle %>%
+    group_by(segment_id) %>%
+    mutate(
+      x_diff = x_location - x_central,
+      y_diff = y_location - y_central,
+      x_scaled = x_central + s * x_diff,
+      y_scaled = y_central + s * y_diff,
+      scale = s,
+      concentric_id = paste0(segment_id, "_", scaling_factor)
+    ) %>%
+    select(-x_diff, -y_diff) # Remove temporary columns
+}
+
+#' Create a scaled data frame
+#'
+#' @param s A numeric scaling factor.
+#' @param df_circle A data frame to scale.
+#' @param k A numeric value, defaulting to 8.
+#' @return A scaled data frame.
+create_scaled_df_super <- function(s, df_circle, k = 5) {
+  scaling_factor <- s * (k + 1)-k
   
   df_circle %>%
     group_by(segment_id) %>%
@@ -257,33 +275,13 @@ annuli_counts <- function(mat) {
     
     # For every column except the first, subtract the previous column
     for(i in length(cols):2) {
-      mat[,cols[i]] <- mat[,cols[i]] - mat[,cols[i-1]]
+      # Subtract previous column's value, set to 0 if the result would be negative
+      mat[,cols[i]] <- ifelse(mat[,cols[i-1]] > mat[,cols[i]], 0, mat[,cols[i]] - mat[,cols[i-1]])
     }
   }
   return(mat)
 }
 
-#' Convert cumulative counts in concentric polygons to combo polygon counts
-#'
-#' @param mat A matrix of cumulative counts.
-#' @return A matrix of combo polygon counts.
-combo_counts <- function(mat) {
-  # Find unique cell prefixes
-  cell_prefixes <- unique(gsub("(_[0-9]+)_[0-9]+$", "\\1", colnames(mat)))
-  for(prefix in cell_prefixes) {
-    # Identify columns associated with the current cell prefix
-    cols <- grep(paste0("^", prefix, "_"), colnames(mat))
-    
-    # If there's only one column for this prefix, skip it
-    if(length(cols) < 2) next
-    
-    # For every column except the first, subtract the previous column
-    for(i in length(cols):2) {
-      mat[,cols[i]] <- mat[,cols[i]] - mat[,cols[i-1]]
-    }
-  }
-  return(mat)
-}
 
 #' Delete columns ending with '0' from a matrix
 #'
@@ -291,7 +289,7 @@ combo_counts <- function(mat) {
 #' @return A modified matrix without columns ending in '0'.
 delete_inner <- function(m) {
   # Identify columns that don't end with "_0"
-  cols_to_keep <- !grepl("_09$", colnames(m))
+  cols_to_keep <- !grepl("_01$", colnames(m))
   
   # Subset the matrix to keep only these columns
   m_sub <- m[, cols_to_keep]
@@ -311,9 +309,10 @@ calculate_entropy <- function(p) {
 #'
 #' @param mat A matrix to process.
 #' @return A character vector of unique segments.
-get_segments <- function(mat) {
-  segments <- unique(gsub("_.+$", "", colnames(mat)))
-  return(segments)
+get_cells <- function(mat) {
+  # Extract the unique cell identifiers before the last underscore
+  cells <- unique(gsub("(.*)_[^_]+$", "\\1", colnames(mat)))
+  return(cells)
 }
 
 #' Extract a submatrix corresponding to a segment from a matrix
@@ -321,50 +320,54 @@ get_segments <- function(mat) {
 #' @param mat A matrix to process.
 #' @param segment A character string indicating the segment to extract.
 #' @return A submatrix of the provided matrix.
-extract_sub_mat <- function(mat, segment) {
-  matching_cols <- grepl(segment, colnames(mat))
-  sub_mat <- mat[, matching_cols, drop = FALSE]
-  return(sub_mat)
+extract_cell_segments <- function(mat, cell) {
+  # Create a regex pattern to match all segments of the cell
+  pattern <- paste0("^", cell, "_\\d+$")
+  matching_cols <- grepl(pattern, colnames(mat))
+  cell_segments_mat <- mat[, matching_cols, drop = FALSE]
+  return(cell_segments_mat)
 }
 
 #' Compute entropy for a given matrix
 #'
 #' @param mat A matrix to compute entropy for.
 #' @return A vector of entropy values.
-compute_entropy <- function(mat) {
+compute_cell_entropy <- function(cell_segments_mat) {
   # Convert to proportions
-  proportions <- t(apply(mat, 1, function(row) {
-    total <- sum(row)  # Compute sum of the row
+  proportions <- apply(cell_segments_mat, 1, function(counts) {
+    total <- sum(counts)
     if (total == 0) {
-      return(rep(0, length(row)))
+      return(rep(0, length(counts)))
     } else {
-      return(row / total)
+      return(counts / total)
     }
-  }))
-  out_mat = apply(proportions, 1, calculate_entropy)
-  return(out_mat)
+  })
+  
+  # Compute entropy for each gene
+  gene_entropies <- apply(proportions, 2, calculate_entropy)
+  return(gene_entropies)
 }
 
 #' Compute entropy for the entire matrix
-#'
+#' @export
 #' @param mat A matrix to compute entropy for.
 #' @return A data frame of entropy values for the matrix.
 matrix_entropy <- function(mat) {
-  segments <- get_segments(mat)
-  # Determine the number of cores available for parallel processing
-  no_of_cores <- 10
+  mat <- as.matrix(mat)  # Convert dgCMatrix to a regular matrix if necessary
+  cells <- get_cells(mat)
+  no_of_cores <- 10  # Reserve one core for the system
   
-  results <- mclapply(segments, function(seg) {
-    sub_mat <- extract_sub_mat(mat, seg)
-    compute_entropy(sub_mat)
+  results <- mclapply(cells, function(cell) {
+    cell_segments_mat <- extract_cell_segments(mat, cell)
+    compute_cell_entropy(cell_segments_mat)
   }, mc.cores = no_of_cores)
-  # results <- lapply(segments, function(seg) {
-  #   sub_mat <- extract_sub_mat(mat, seg)
-  #   compute_entropy(sub_mat)
-  # })
+  
   df_entropy <- as.data.frame(do.call(cbind, results))
   rownames(df_entropy) <- rownames(mat)
-  colnames(df_entropy) <- paste0(segments)
+  
+  # Construct the column names to reflect the original cells
+  colnames(df_entropy) <- cells
+  
   return(df_entropy)
 }
 

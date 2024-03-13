@@ -2,20 +2,22 @@
 % Please edit documentation in R/utilities_Entropy.R, R/utilities_MCC.R
 \name{extract_boundaries}
 \alias{extract_boundaries}
-\title{Extract boundaries from a SpatialExperiment object.}
+\title{Extract boundaries from a given object}
 \usage{
 extract_boundaries(me)
 
 extract_boundaries(me)
 }
 \arguments{
-\item{me}{A SpatialExperiment object.}
+\item{me}{A SpatialExperiment object containing spatial and molecular data.}
 }
 \value{
 A data frame of extracted boundaries.
 
-A dataframe containing boundaries.
+A data frame with cell boundaries extracted from the SpatialExperiment object.
 }
 \description{
-Extract boundaries from a SpatialExperiment object.
+Extract boundaries from a given object
+
+Extract Cell Boundaries from SpatialExperiment Object
 }

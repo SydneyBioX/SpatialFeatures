@@ -14,16 +14,21 @@
 #' # Assuming `data_obj` is your Molecule Experiment object
 #' em = EntropyMatrix(data_obj, assayName = "sub-sector")
 #' }
-EntropyMatrix <- function(me, assayName, ...) {
-  # Ensure assayName is valid
-  if (!assayName %in% c("sub_sector", "sub_concentric", 'sub_combo', "super_sector", "super_concentric", "super_combo")) {
-    stop("Invalid assayName provided!")
+
+EntropyMatrix <- function(me, assayNames, ...) {
+  # Ensure assayNames are valid
+  if (!all(assayNames %in% c("sub_sector", "sub_concentric", 'sub_combo', "super_sector", "super_concentric", "super_combo"))) {
+    stop("Invalid assayName(s) provided!")
   }
-  # Assuming 'me' is globally available or should pass it as an argument
-  countsmatrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, ...)
   
-  # Extract the counts matrix
-  counts_matrix <- CountsMatrix(assayName, countsmatrix)
-  entropy_matrix <- matrix_entropy(counts_matrix)
-  return(entropy_matrix)
+  # Generate a list of entropy matrices
+  entropy_matrices <- lapply(assayNames, function(assay) {
+    counts_matrix <- CountsMatrix(me, assay, ...)
+    matrix_entropy(counts_matrix)
+  })
+  
+  # Name the list based on the assay names
+  names(entropy_matrices) <- assayNames
+  
+  return(entropy_matrices)
 }

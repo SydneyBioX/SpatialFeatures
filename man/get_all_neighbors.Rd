@@ -2,18 +2,18 @@
 % Please edit documentation in R/utilities_MCC.R
 \name{get_all_neighbors}
 \alias{get_all_neighbors}
-\title{Get neighbors for all cells and save to dataframe.}
+\title{Get All Neighbors in a Dataset}
 \usage{
 get_all_neighbors(df, threshold = 2)
 }
 \arguments{
-\item{df}{Dataframe containing cell data.}
+\item{df}{A data frame with cell information, including 'segment_id' and 'sample_id'.}
 
-\item{threshold}{Distance threshold to determine if cells are neighbors.}
+\item{threshold}{Distance threshold to consider cells as neighbors (default is 2).}
 }
 \value{
-A dataframe containing cells and their respective neighbors.
+A data frame listing pairs of cells and their neighbors.
 }
 \description{
-Get neighbors for all cells and save to dataframe.
+Get All Neighbors in a Dataset
 }

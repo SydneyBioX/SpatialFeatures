@@ -4,7 +4,7 @@
 \alias{generate_scale_factors_all_outside}
 \title{Generate scale factors for all outside values of ks}
 \usage{
-generate_scale_factors_all_outside(ks)
+generate_scale_factors_all_outside(k)
 }
 \arguments{
 \item{ks}{A numeric value.}

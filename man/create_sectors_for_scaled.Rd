@@ -4,7 +4,7 @@
 \alias{create_sectors_for_scaled}
 \title{Create sectors for scaled values}
 \usage{
-create_sectors_for_scaled(df, scale, k = 8)
+create_sectors_for_scaled(df, scale, k = 5)
 }
 \arguments{
 \item{df}{A data frame to process.}

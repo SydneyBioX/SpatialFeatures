@@ -2,20 +2,20 @@
 % Please edit documentation in R/utilities_MCC.R
 \name{are_neighbors}
 \alias{are_neighbors}
-\title{Check if two cells are neighbors based on their boundary points.}
+\title{Determine if Cells are Neighbors}
 \usage{
 are_neighbors(df1, df2, threshold)
 }
 \arguments{
-\item{df1}{Dataframe of the first cell's boundaries.}
+\item{df1}{A data frame with x and y coordinates of the first set of cells.}
 
-\item{df2}{Dataframe of the second cell's boundaries.}
+\item{df2}{A data frame with x and y coordinates of the second set of cells.}
 
-\item{threshold}{Distance threshold to determine if cells are neighbors.}
+\item{threshold}{A numeric value specifying the distance threshold to consider cells as neighbors.}
 }
 \value{
-Logical indicating if the cells are neighbors.
+TRUE if any cell in df1 is a neighbor of any cell in df2 within the specified threshold, otherwise FALSE.
 }
 \description{
-Check if two cells are neighbors based on their boundary points.
+Determine if Cells are Neighbors
 }

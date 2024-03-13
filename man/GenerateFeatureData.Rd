@@ -4,7 +4,7 @@
 \alias{GenerateFeatureData}
 \title{Generate Feature Data Based on Assay Type Combining Various Polygon Assays}
 \usage{
-GenerateFeatureData(me, k = 8)
+GenerateFeatureData(me, k = 5)
 }
 \arguments{
 \item{me}{The input data object. This object contains spatial information,

@@ -35,7 +35,7 @@
 #' feature_data_list <- GenerateFeatureData(data_obj)
 #' sub_sector_data <- feature_data_list$sub_sector
 #' }
-GenerateFeatureData <- function(me, k = 8) {
+GenerateFeatureData <- function(me, k = 5) {
   results <- extract_boundaries_and_centroids(me)
   df_circle = results$df_circle
   
@@ -48,53 +48,29 @@ GenerateFeatureData <- function(me, k = 8) {
     bind_rows() %>%
     dplyr::rename(x_section = x_location_sector, y_section = y_location_sector, area_id = sector_id) 
   
-  # Common for sub-concentric, sub-combo, super-concentric, super-combo
+  # Common for sub-concentric
   common_scale_factors <- generate_scale_factors_all(k)
   common_scaled_df <- common_scale_factors %>%
-    map_dfr(~create_scaled_df(.x, df_circle, k))
+    map_dfr(~create_scaled_df_sub(.x, df_circle, k))
   
   # For sub-concentric
   sub_concentric <- common_scaled_df %>%
     select(x_section = x_scaled, y_section = y_scaled, segment_id, sample_id, area_id = concentric_id) 
   
-  # For sub-combo
-  sub_combo <- common_scaled_df %>%
-    distinct(concentric_id, x_scaled, y_scaled, .keep_all = TRUE) %>%
-    group_by(concentric_id) %>%
-    group_split() %>%
-    mclapply(function(df) {
-      create_sectors_for_scaled(df, unique(df$scale))
-    }, mc.cores = 10) %>%
-    bind_rows() %>%
-    dplyr::rename(x_section = x_location_sector, y_section = y_location_sector, area_id = combo_id) 
-  
   # For super-sector
   super_sector <- create_sector_df(df_circle)
   
-  # For super-concentric and super-combo
+  # For super-concentric
   super_scale_factors <- generate_scale_factors_all_outside(k)
   super_scaled_df <- super_scale_factors %>%
-    map_dfr(~create_scaled_df(.x, df_circle, k))
+    map_dfr(~create_scaled_df_super(.x, df_circle, k))
   
   super_concentric <- super_scaled_df %>%
     select(x_section = x_scaled, y_section = y_scaled, segment_id, sample_id, area_id = concentric_id) 
   
-  super_combo <- super_scaled_df %>%
-    distinct(concentric_id, x_scaled, y_scaled, .keep_all = TRUE) %>%
-    group_by(concentric_id) %>%
-    group_split() %>%
-    mclapply(function(df) {
-      create_sectors_for_scaled(df, unique(df$scale))
-    }, mc.cores = 10) %>%
-    do.call(rbind, .) %>%
-    select(x_location_sector, y_location_sector, segment_id, sample_id, combo_id) %>%
-    dplyr::rename(x_section = x_location_sector, y_section = y_location_sector, area_id = combo_id) 
-  
   # Modify the area_id column for each table
   sub_concentric <- sub_concentric %>% mutate(area_id = sapply(area_id, modify_area_id))
-  sub_combo <- sub_combo %>% mutate(area_id = sapply(area_id, modify_area_id))
   super_concentric <- super_concentric %>% mutate(area_id = sapply(area_id, modify_area_id))
-  super_combo <- super_combo %>% mutate(area_id = sapply(area_id, modify_area_id))
   
-  return(list(sub_sector = sub_sector, sub_concentric = sub_concentric, sub_combo = sub_combo, super_sector = super_sector, super_concentric = super_concentric, super_combo = super_combo))
+  return(list(sub_sector = sub_sector, sub_concentric = sub_concentric, super_sector = super_sector, super_concentric = super_concentric))
 }

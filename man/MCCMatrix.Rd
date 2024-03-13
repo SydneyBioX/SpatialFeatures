@@ -2,7 +2,7 @@
 % Please edit documentation in R/MCCMatrix.R
 \name{MCCMatrix}
 \alias{MCCMatrix}
-\title{Compute the MCC matrix for spatial cell data.}
+\title{Comprehensive Function to Compute MCC Matrix from SpatialExperiment}
 \usage{
 MCCMatrix(me)
 }
@@ -10,8 +10,14 @@ MCCMatrix(me)
 \item{me}{A SpatialExperiment object.}
 }
 \value{
-A sparse matrix with MCC calculations.
+A sparse matrix of Matthews correlation coefficients.
 }
 \description{
-Compute the MCC matrix for spatial cell data.
+This function wraps several processing steps including extracting cell boundaries,
+counting molecules, calculating neighbor sums, ordering and sparsifying the matrix,
+and computing the MCC matrix.
+}
+\examples{
+# Assuming 'me' is a SpatialExperiment object
+mcc_matrix <- MCCMatrix(me)
 }

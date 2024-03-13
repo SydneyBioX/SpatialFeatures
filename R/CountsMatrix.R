@@ -15,29 +15,22 @@
 #' # Assuming `data_obj` is your Molecule Experiment object
 #' cm = CountsMatrix(data_obj, assayName = "sub-sector")
 #' }
-CountsMatrix <- function(assayName, counts_matrix) {
-  # Ensure assayName is valid
-  if (!assayName %in% c("sub_sector", "sub_concentric", 'sub_combo', "super_sector", "super_concentric", "super_combo")) {
-    stop("Invalid assayName provided!")
-  }
+
+CountsMatrix <- function(me, assayName, ...) {
+  # Assuming 'me' is globally available or should pass it as an argument
+  counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, ...)
 
   # Determine which method to use for counts matrix transformation
   if (assayName == "sub_sector") {
     return(counts_matrix)
   } else if (assayName == "sub_concentric") {
     return(annuli_counts(counts_matrix))
-  } else if (assayName == "sub_combo") {
-    return(combo_counts(counts_matrix))
   } else if (assayName == "super_sector") {
     return(counts_matrix)
   } else if (assayName == "super_concentric") {
     # Convert to annuli counts and then remove inner polygons
     out_concentric_super <- annuli_counts(counts_matrix)
     return(delete_inner(out_concentric_super))
-  } else if (assayName == "super_combo") {
-    # Convert to combo counts and then remove inner polygons
-    out_combo_super <- combo_counts(counts_matrix)
-    return(delete_inner(out_combo_super))
   } else {
     stop("Unknown assay type!")
   }

@@ -2,18 +2,18 @@
 % Please edit documentation in R/utilities_MCC.R
 \name{calculate_neighbour_sums}
 \alias{calculate_neighbour_sums}
-\title{Calculate neighbor sums for a given matrix.}
+\title{Calculate Sum of Gene Counts from Neighbors}
 \usage{
 calculate_neighbour_sums(mat, cellneighbours)
 }
 \arguments{
-\item{mat}{A matrix of counted molecules.}
+\item{mat}{A matrix of gene counts.}
 
-\item{cellneighbours}{A dataframe containing cells and their respective neighbors.}
+\item{cellneighbours}{A data frame or list with neighbor information.}
 }
 \value{
-A matrix with neighbor sums.
+A matrix with original gene counts and additional columns for neighbor sums.
 }
 \description{
-Calculate neighbor sums for a given matrix.
+Calculate Sum of Gene Counts from Neighbors
 }

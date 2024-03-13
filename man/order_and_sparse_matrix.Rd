@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities_MCC.R
 \name{order_and_sparse_matrix}
 \alias{order_and_sparse_matrix}
-\title{Order the matrix and convert to sparse format.}
+\title{Order and Convert Matrix to Sparse Format}
 \usage{
 order_and_sparse_matrix(mat)
 }
@@ -10,8 +10,8 @@ order_and_sparse_matrix(mat)
 \item{mat}{A matrix to be ordered and converted.}
 }
 \value{
-A sparse ordered matrix.
+A sparse matrix in ordered format.
 }
 \description{
-Order the matrix and convert to sparse format.
+Order and Convert Matrix to Sparse Format
 }

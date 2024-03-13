@@ -4,13 +4,13 @@
 \alias{CountsMatrix}
 \title{Extract Counts Matrix from Molecule Experiment based on Assay Type}
 \usage{
-CountsMatrix(assayName, counts_matrix)
+CountsMatrix(me, assayName, ...)
 }
 \arguments{
+\item{me}{A Molecule Experiment object.}
+
 \item{assayName}{A character string indicating the assay type. Supported values include
 "sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
-
-\item{me}{A Molecule Experiment object.}
 }
 \value{
 A counts matrix corresponding to the specified assay type.

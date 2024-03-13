@@ -28,9 +28,11 @@ loadBoundariesToME <- function(me, k = 5, r = 6) {
   
   regions_segments <- split_rectangle(me)
   
-  # List of assay names to process
-  assay_names <- c("sub_sector", "sub_concentric", "sub_combo", 
-                   "super_sector", "super_concentric", "super_combo")
+  # # List of assay names to process
+  # assay_names <- c("sub_sector", "sub_concentric", "sub_combo", 
+  #                  "super_sector", "super_concentric", "super_combo")
+  assay_names <- c("sub_sector", "sub_concentric", 
+                   "super_sector", "super_concentric")
   
   # Generate all the data using the GenerateFeatureData function
   results_all <- SpatialFeatures::GenerateFeatureData(me, k = k)
