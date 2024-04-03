@@ -468,10 +468,10 @@ split_rectangle <- function(me) {
   central_coords <- compute_central_coordinates(me)
   
   # Extract extent
-  xmin = extent(me)[1]
-  xmax = extent(me)[2]
-  ymin = extent(me)[3]
-  ymax = extent(me)[4]
+  xmin = extent(me, assayName = "detected")[1]
+  xmax = extent(me, assayName = "detected")[2]
+  ymin = extent(me, assayName = "detected")[3]
+  ymax = extent(me, assayName = "detected")[4]
   
   # Determine midpoints
   xmid = xmin + (xmax - xmin) / 2
