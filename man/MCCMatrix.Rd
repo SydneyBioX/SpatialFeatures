@@ -19,5 +19,5 @@ and computing the MCC matrix.
 }
 \examples{
 # Assuming 'me' is a SpatialExperiment object
-mcc_matrix <- MCCMatrix(me)
+# mcc_matrix <- MCCMatrix(me)
 }
