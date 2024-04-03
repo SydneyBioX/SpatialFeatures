@@ -27,6 +27,6 @@ and concatenates colData from all objects.
 }
 \examples{
 # Assuming you have a list of SummarizedExperiment objects: se_list
-combined_se <- combineSE(se_list)
+# combined_se <- combineSE(se_list)
 
 }

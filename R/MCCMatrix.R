@@ -9,7 +9,9 @@
 #' @export
 #' @examples
 #' # Assuming 'me' is a SpatialExperiment object
-#' # mcc_matrix <- MCCMatrix(me)
+#' library(MoleculeExperiment)
+#' data(small_me)
+#' mcc_matrix <- MCCMatrix(small_me)
 MCCMatrix <- function(me) {
   # Step 1: Extract boundaries and calculate neighbors
   results <- SpatialFeatures::extract_data_and_neighbors(me)

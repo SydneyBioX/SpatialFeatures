@@ -19,5 +19,7 @@ and computing the MCC matrix.
 }
 \examples{
 # Assuming 'me' is a SpatialExperiment object
-# mcc_matrix <- MCCMatrix(me)
+library(MoleculeExperiment)
+data(small_me)
+mcc_matrix <- MCCMatrix(small_me)
 }
