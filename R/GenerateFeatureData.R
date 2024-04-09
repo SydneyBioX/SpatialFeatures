@@ -31,10 +31,10 @@
 #' @importFrom parallel mclapply
 #' @examples
 #' \dontrun{
-#' # Assuming `data_obj` is your data
-#' feature_data_list <- GenerateFeatureData(data_obj)
+#' data(example_me)
+#' feature_data_list <- GenerateFeatureData(example_me)
 #' sub_sector_data <- feature_data_list$sub_sector
-#' }
+
 GenerateFeatureData <- function(me, k = 5) {
   results <- extract_boundaries_and_centroids(me)
   df_circle = results$df_circle

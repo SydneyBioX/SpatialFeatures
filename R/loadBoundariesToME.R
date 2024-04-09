@@ -19,10 +19,8 @@
 #'         for the supported assays.
 #' @export
 #' @examples
-#' \dontrun{
-#' # Assuming `data_obj` is your Molecule Experiment object
-#' enriched_data_obj <- loadBoundariesToME(data_obj)
-#' }
+#' data(example_me)
+#' me_list <- loadBoundariesToME(example_me)
 
 loadBoundariesToME <- function(me, k = 5, r = 6) {
   
