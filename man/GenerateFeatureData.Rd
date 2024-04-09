@@ -39,10 +39,3 @@ These assays represent various spatial subdivisions or transformations, each
 addressing unique feature characteristics. The results from each assay are
 combined and returned as a list of dataframes.
 }
-\examples{
-\dontrun{
-# Assuming `data_obj` is your data
-feature_data_list <- GenerateFeatureData(data_obj)
-sub_sector_data <- feature_data_list$sub_sector
-}
-}

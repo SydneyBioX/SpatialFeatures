@@ -29,8 +29,6 @@ The function internally processes each assay, extracts respective boundary infor
 and updates the original ME object with this new data.
 }
 \examples{
-\dontrun{
-# Assuming `data_obj` is your Molecule Experiment object
-enriched_data_obj <- loadBoundariesToME(data_obj)
-}
+data(example_me)
+me_list <- loadBoundariesToME(example_me)
 }

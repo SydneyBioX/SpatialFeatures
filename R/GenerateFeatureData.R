@@ -30,7 +30,6 @@
 #' @importFrom purrr map_dfr
 #' @importFrom parallel mclapply
 #' @examples
-#' \dontrun{
 #' data(example_me)
 #' feature_data_list <- GenerateFeatureData(example_me)
 #' sub_sector_data <- feature_data_list$sub_sector
