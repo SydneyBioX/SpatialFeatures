@@ -30,5 +30,5 @@ and updates the original ME object with this new data.
 }
 \examples{
 data(example_me)
-me_list <- loadBoundariesToME(example_me)
+me_list <- loadBoundariesToMEforAll(example_me)
 }

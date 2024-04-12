@@ -8,7 +8,7 @@
 #' @return A data frame with cell boundaries extracted from the SpatialExperiment object.
 #' @export
 extract_boundaries <- function(me) {
-  df_boundary <- data.frame(boundaries(me, assayName = "cell", flatten = TRUE))
+  df_boundary <- data.frame(MoleculeExperiment::boundaries(me, assayName = "cell", flatten = TRUE))
   return(df_boundary)
 }
 
