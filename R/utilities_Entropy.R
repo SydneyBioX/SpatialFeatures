@@ -262,25 +262,36 @@ modify_area_id <- function(id) {
 #'
 #' @param mat A matrix of cumulative counts.
 #' @return A matrix of annuli polygon counts.
-annuli_counts <- function(mat) {
-  # Find unique cell prefixes
-  cell_prefixes <- unique(sub("_[0-9]+$", "", colnames(mat)))
-  
-  for(prefix in cell_prefixes) {
-    # Identify columns associated with the current cell prefix
-    cols <- grep(paste0("^", prefix, "_"), colnames(mat))
-    
-    # If there's only one column for this prefix, skip it
-    if(length(cols) < 2) next
-    
-    # For every column except the first, subtract the previous column
-    for(i in length(cols):2) {
-      # Subtract previous column's value, set to 0 if the result would be negative
-      mat[,cols[i]] <- ifelse(mat[,cols[i-1]] > mat[,cols[i]], 0, mat[,cols[i]] - mat[,cols[i-1]])
-    }
-  }
-  return(mat)
+annuli_counts = function(mat) {
+  fac = sub("_[0-9]+$", "", colnames(mat))
+  tmat = t(mat)
+  tmat_split = split.data.frame(tmat, fac)
+  tmat_split_diffs = lapply(tmat_split, diff)
+  diffs = do.call(rbind, tmat_split_diffs)
+  cts_new = t(diffs)
+  cts_new[cts_new < 0] <- 0
+  return(cts_new)
 }
+# 
+# annuli_counts <- function(mat) {
+#   # Find unique cell prefixes
+#   cell_prefixes <- unique(sub("_[0-9]+$", "", colnames(mat)))
+#   
+#   for(prefix in cell_prefixes) {
+#     # Identify columns associated with the current cell prefix
+#     cols <- grep(paste0("^", prefix, "_"), colnames(mat))
+#     
+#     # If there's only one column for this prefix, skip it
+#     if(length(cols) < 2) next
+#     
+#     # For every column except the first, subtract the previous column
+#     for(i in length(cols):2) {
+#       # Subtract previous column's value, set to 0 if the result would be negative
+#       mat[,cols[i]] <- ifelse(mat[,cols[i-1]] > mat[,cols[i]], 0, mat[,cols[i]] - mat[,cols[i-1]])
+#     }
+#   }
+#   return(mat)
+# }
 
 
 #' Delete columns ending with '0' from a matrix
