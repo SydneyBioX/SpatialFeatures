@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #' data(example_me)
-#' me_list <- loadBoundariesToME(example_me)
+#' me_list <- loadBoundariesToMEforAll(example_me)
 
 loadBoundariesToMEforAll <- function(me, k = 5) {
   

@@ -266,7 +266,7 @@ annuli_counts = function(mat) {
   fac = sub("_[0-9]+$", "", colnames(mat))
   tmat = terra::t(mat)
   tmat_split = split.data.frame(tmat, fac)
-  tmat_split_diffs = lapply(tmat_split, diff)
+  tmat_split_diffs = lapply(tmat_split, terra::diff)
   diffs = do.call(rbind, tmat_split_diffs)
   cts_new = t(diffs)
   cts_new[cts_new < 0] <- 0

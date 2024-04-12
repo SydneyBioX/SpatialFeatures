@@ -30,7 +30,8 @@ CountsMatrix <- function(me, assayName, ...) {
   } else if (assayName == "super_concentric") {
     # Convert to annuli counts and then remove inner polygons
     out_concentric_super <- annuli_counts(counts_matrix)
-    return(delete_inner(out_concentric_super))
+    return(out_concentric_super)
+    # return(delete_inner(out_concentric_super))
   } else {
     stop("Unknown assay type!")
   }
