@@ -96,7 +96,7 @@ loadBoundariesToMEforAll <- function(me, k = 5) {
     )
     
     for (assay in assay_names) {
-      boundaries(me_copy, assay) <- results_list[[assay]]
+      MoleculeExperiment::boundaries(me_copy, assay) <- results_list[[assay]]
     }
     
     return(me_copy)
