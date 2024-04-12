@@ -20,7 +20,7 @@ extract_boundaries <- function(me) {
 calculate_centroids <- function(df_boundary) {
   df_circle <- df_boundary %>%
     group_by(segment_id) %>%
-    mutate(x_central = mean(head(x_location, -1)), 
+    mutate(x_central = mean(head(x_location, -1)),
            y_central = mean(head(y_location, -1))) %>%
     ungroup()
   return(df_circle)
@@ -44,11 +44,11 @@ extract_boundaries_and_centroids <- function(me) {
 create_sectors <- function(df) {
   df <- df[order(df$angle),]
   sectors <- list()
-  
+
   for (i in 1:nrow(df)) {
     p1 <- df[i,]
     p2 <- if (i == nrow(df)) df[1,] else df[i+1,]
-    
+
     sector <- data.frame(
       x_location_sector = c(p1$x_location, p2$x_location, p1$x_central, p1$x_location),
       y_location_sector = c(p1$y_location, p2$y_location, p1$y_central, p1$y_location),
@@ -58,7 +58,7 @@ create_sectors <- function(df) {
     )
     sectors[[i]] <- sector
   }
-  
+
   do.call(rbind, sectors)
 }
 
@@ -78,13 +78,13 @@ generate_scale_factors_all <- function(k) {
 create_sectors_modified <- function(df) {
   df <- df[order(df$angle),]
   sectors <- list()
-  
+
   concentric_order <- as.numeric(str_extract(df$concentric_id[1], "(?<=_)[0-9]+$"))
-  
+
   for (i in 1:nrow(df)) {
     p1 <- df[i,]
     p2 <- if (i == nrow(df)) df[1,] else df[i+1,]
-    
+
     sector <- data.frame(
       x_location_sector = c(p1$x_location, p2$x_location, p1$x_central, p1$x_location),
       y_location_sector = c(p1$y_location, p2$y_location, p1$y_central, p1$y_location),
@@ -94,7 +94,7 @@ create_sectors_modified <- function(df) {
     )
     sectors[[i]] <- sector
   }
-  
+
   do.call(rbind, sectors)
 }
 
@@ -110,15 +110,15 @@ create_sectors_for_scaled <- function(df, scale, k = 5) {
     mutate(x_location = x_scaled, y_location = y_scaled) %>%
     group_by(segment_id) %>%
     mutate(angle = atan2(y_scaled - y_central, x_scaled - x_central) + pi)
-  
+
   # Apply the create_sectors_modified function on each group
   sectors_list <- lapply(split(df, df$segment_id), create_sectors_modified)
-  
+
   # Combine results, arrange and add concentric_id
   df_sectors <- do.call(rbind, sectors_list) %>%
     arrange(sample_id) %>%
     mutate(concentric_id = paste0(segment_id, '_', scale*(k+1)))
-  
+
   return(df_sectors)
 }
 
@@ -139,7 +139,7 @@ generate_scale_factors_all_outside <- function(k) {
 #' @return A scaled data frame.
 create_scaled_df_sub <- function(s, df_circle, k = 5) {
   scaling_factor <- s * (k + 1)
-  
+
   df_circle %>%
     group_by(segment_id) %>%
     mutate(
@@ -161,7 +161,7 @@ create_scaled_df_sub <- function(s, df_circle, k = 5) {
 #' @return A scaled data frame.
 create_scaled_df_super <- function(s, df_circle, k = 5) {
   scaling_factor <- s * (k + 1)-k
-  
+
   df_circle %>%
     group_by(segment_id) %>%
     mutate(
@@ -177,7 +177,7 @@ create_scaled_df_super <- function(s, df_circle, k = 5) {
 
 #' Create sector data frame from circle data
 #'
-#' This function takes a data frame of circle data with segment IDs and locations, 
+#' This function takes a data frame of circle data with segment IDs and locations,
 #' and returns a data frame of sectors with their scaled coordinates.
 #'
 #' @param df A data frame containing circle data with segment IDs, x and y locations.
@@ -246,7 +246,7 @@ create_sector_df <- function(df) {
 
 #' Modify the area_id format
 #'
-#' This function takes an area_id string and modifies the last segment 
+#' This function takes an area_id string and modifies the last segment
 #' if it's a single-digit number between 1 and 9 by adding a leading zero.
 #'
 #' @param id A string representing the area_id.
@@ -261,29 +261,33 @@ modify_area_id <- function(id) {
 #' Convert cumulative counts in concentric polygons to annuli polygon counts
 #'
 #' @param mat A matrix of cumulative counts.
+#'
+#' @importFrom terra t diff
 #' @return A matrix of annuli polygon counts.
 annuli_counts = function(mat) {
   fac = sub("_[0-9]+$", "", colnames(mat))
+  # tmat = terra::t(mat)
   tmat = terra::t(mat)
   tmat_split = split.data.frame(tmat, fac)
+  # tmat_split_diffs = lapply(tmat_split, terra::diff)
   tmat_split_diffs = lapply(tmat_split, terra::diff)
   diffs = do.call(rbind, tmat_split_diffs)
   cts_new = terra::t(diffs)
   cts_new[cts_new < 0] <- 0
   return(cts_new)
 }
-# 
+#
 # annuli_counts <- function(mat) {
 #   # Find unique cell prefixes
 #   cell_prefixes <- unique(sub("_[0-9]+$", "", colnames(mat)))
-#   
+#
 #   for(prefix in cell_prefixes) {
 #     # Identify columns associated with the current cell prefix
 #     cols <- grep(paste0("^", prefix, "_"), colnames(mat))
-#     
+#
 #     # If there's only one column for this prefix, skip it
 #     if(length(cols) < 2) next
-#     
+#
 #     # For every column except the first, subtract the previous column
 #     for(i in length(cols):2) {
 #       # Subtract previous column's value, set to 0 if the result would be negative
@@ -301,7 +305,7 @@ annuli_counts = function(mat) {
 delete_inner <- function(m) {
   # Identify columns that don't end with "_0"
   cols_to_keep <- !grepl("_01$", colnames(m))
-  
+
   # Subset the matrix to keep only these columns
   m_sub <- m[, cols_to_keep]
   return(m_sub)
@@ -353,7 +357,7 @@ compute_cell_entropy <- function(cell_segments_mat) {
       return(counts / total)
     }
   })
-  
+
   # Compute entropy for each gene
   gene_entropies <- apply(proportions, 2, calculate_entropy)
   return(gene_entropies)
@@ -367,27 +371,27 @@ matrix_entropy <- function(mat) {
   mat <- as.matrix(mat)  # Convert dgCMatrix to a regular matrix if necessary
   cells <- get_cells(mat)
   no_of_cores <- 10  # Reserve one core for the system
-  
+
   results <- mclapply(cells, function(cell) {
     cell_segments_mat <- extract_cell_segments(mat, cell)
     compute_cell_entropy(cell_segments_mat)
   }, mc.cores = no_of_cores)
-  
+
   df_entropy <- as.data.frame(do.call(cbind, results))
   rownames(df_entropy) <- rownames(mat)
-  
+
   # Construct the column names to reflect the original cells
   colnames(df_entropy) <- cells
-  
+
   return(df_entropy)
 }
 
 #' Compute Central Coordinates of Boundaries
 #'
 #' @description
-#' This function computes the central coordinates for each segment in the given 
-#' Molecule Experiment (ME) object. The function takes advantage of the `boundaries` 
-#' function to extract boundary coordinates and then computes the central coordinate 
+#' This function computes the central coordinates for each segment in the given
+#' Molecule Experiment (ME) object. The function takes advantage of the `boundaries`
+#' function to extract boundary coordinates and then computes the central coordinate
 #' by averaging the x and y locations.
 #'
 #' @param me A Molecule Experiment (ME) object that holds boundary data.
@@ -402,7 +406,7 @@ matrix_entropy <- function(mat) {
 compute_central_coordinates <- function(me, assay_name = "cell") {
   # Extract boundaries
   df <- MoleculeExperiment::boundaries(me, assayName = "cell", flatten = TRUE)
-  
+
   # Calculate the central points for each segment_id
   result_df <- df %>%
     group_by(segment_id, sample_id) %>%
@@ -417,9 +421,9 @@ compute_central_coordinates <- function(me, assay_name = "cell") {
 #' Split Rectangle into Regions Based on Central Coordinates
 #'
 #' @description
-#' This function determines which region each segment belongs to within a rectangle. 
-#' It computes the central coordinates and then based on these central points, segments 
-#' the rectangle into 12 regions. The function finally associates each segment to one 
+#' This function determines which region each segment belongs to within a rectangle.
+#' It computes the central coordinates and then based on these central points, segments
+#' the rectangle into 12 regions. The function finally associates each segment to one
 #' of the 12 regions.
 #'
 #' @param me A Molecule Experiment (ME) object that holds boundary data.
@@ -432,39 +436,39 @@ compute_central_coordinates <- function(me, assay_name = "cell") {
 split_dataframe_by_region <- function(df, regions_segments) {
   # Create an empty data.frame with the same columns as df
   empty_df <- data.frame(lapply(df, function(col) numeric(0)))
-  
+
   # Use mclapply to filter the dataframe based on segment_id and sample_id for each row in regions_segments
   df_list <- mclapply(seq_len(nrow(regions_segments)), function(i) {
     ids <- unlist(strsplit(regions_segments$segment_ids[i], ", "))
     samples <- unlist(strsplit(regions_segments$sample_ids[i], ", "))
-    
+
     # Filter the dataframe based on segment_id and sample_id
     filtered_df <- df %>%
-      filter(segment_id %in% ids & sample_id %in% samples) 
-    
+      filter(segment_id %in% ids & sample_id %in% samples)
+
     if (nrow(filtered_df) == 0) {
       return(empty_df)
     } else {
       return(filtered_df)
     }
   }, mc.cores = 10) # Setting the number of cores to 10
-  
+
   return(df_list)
 }
 
 #' Split Molecule Experiment Object into Regions
 #'
-#' This function splits a given Molecule Experiment (ME) object into 
-#' 12 different rectangular regions. The regions are determined based on 
-#' the central coordinates and extents of the ME object. The function 
+#' This function splits a given Molecule Experiment (ME) object into
+#' 12 different rectangular regions. The regions are determined based on
+#' the central coordinates and extents of the ME object. The function
 #' returns a dataframe that associates each segment with a region.
 #'
 #' @param me A Molecule Experiment (ME) object.
 #'
-#' @return A dataframe with three columns: region (numeric region identifier 
+#' @return A dataframe with three columns: region (numeric region identifier
 #'         ranging from 1 to 12), sample_id (unique identifier for each sample),
-#'         and segment_ids (comma-separated segment IDs that belong to each 
-#'         region-sample combination). If there are no segments for a particular 
+#'         and segment_ids (comma-separated segment IDs that belong to each
+#'         region-sample combination). If there are no segments for a particular
 #'         region-sample combination, segment_ids will be an empty string.
 #'
 #' @examples
@@ -472,25 +476,25 @@ split_dataframe_by_region <- function(df, regions_segments) {
 #' # Assuming `me_obj` is your Molecule Experiment object
 #' regions_df <- split_rectangle(me_obj)
 #' }
-#' 
+#'
 #' @export
 split_rectangle <- function(me) {
   # Compute central coordinates
   central_coords <- compute_central_coordinates(me)
-  
+
   # Extract extent
   xmin = extent(me, assayName = "detected")[1]
   xmax = extent(me, assayName = "detected")[2]
   ymin = extent(me, assayName = "detected")[3]
   ymax = extent(me, assayName = "detected")[4]
-  
+
   # Determine midpoints
   xmid = xmin + (xmax - xmin) / 2
   ymid1 = ymin + (ymax - ymin) / 3  # One-third the height for top row boundary
   ymid2 = ymin + 2 * (ymax - ymin) / 3  # Two-thirds the height for bottom row boundary
-  
+
   # Determine which region each segment belongs to
-  central_coords$region <- 
+  central_coords$region <-
     case_when(
       central_coords$x_central < xmid & central_coords$y_central > 2*ymid2 ~ 1,
       central_coords$x_central < xmid & central_coords$y_central > ymid2 ~ 2,
@@ -505,7 +509,7 @@ split_rectangle <- function(me) {
       central_coords$x_central < xmid & central_coords$y_central <= ymid2 ~ 11,
       central_coords$x_central >= xmid & central_coords$y_central <= ymid2 ~ 12
     )
-  
+
   # Group by region and summarize
   result <- central_coords %>%
     group_by(region) %>%
@@ -514,16 +518,16 @@ split_rectangle <- function(me) {
       segment_ids = paste(unique(segment_id), collapse = ", "),
       .groups = "drop"
     )
-  
+
   # Create a reference dataframe for all regions
   all_regions <- data.frame(region = 1:12)
-  
+
   # Left join with the reference dataframe to ensure all regions are included
   result <- left_join(all_regions, result, by = "region")
-  
+
   # If segments or sample_ids column is NA, replace with empty string
   result$segment_ids[is.na(result$segment_ids)] <- ""
   result$sample_ids[is.na(result$sample_ids)] <- ""
-  
+
   return(result)
 }

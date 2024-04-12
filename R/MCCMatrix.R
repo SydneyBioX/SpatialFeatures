@@ -8,10 +8,10 @@
 #' @return A sparse matrix of Matthews correlation coefficients.
 #' @export
 #' @examples
-#' # Assuming 'me' is a SpatialExperiment object
-#' library(MoleculeExperiment)
-#' data(small_me)
-#' mcc_matrix <- MCCMatrix(small_me)
+#' # Assuming 'small_me' is a SpatialExperiment object
+#' # not run
+#' # data(small_me, package = "MoleculeExperiment")
+#' # mcc_matrix <- MCCMatrix(small_me)
 MCCMatrix <- function(me) {
   # Step 1: Extract boundaries and calculate neighbors
   results <- SpatialFeatures::extract_data_and_neighbors(me)

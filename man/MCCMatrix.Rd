@@ -18,8 +18,8 @@ counting molecules, calculating neighbor sums, ordering and sparsifying the matr
 and computing the MCC matrix.
 }
 \examples{
-# Assuming 'me' is a SpatialExperiment object
-library(MoleculeExperiment)
-data(small_me)
-mcc_matrix <- MCCMatrix(small_me)
+# Assuming 'small_me' is a SpatialExperiment object
+# not run
+# data(small_me, package = "MoleculeExperiment")
+# mcc_matrix <- MCCMatrix(small_me)
 }

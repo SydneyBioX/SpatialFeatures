@@ -29,6 +29,6 @@ The function internally processes each assay, extracts respective boundary infor
 and updates the original ME object with this new data.
 }
 \examples{
-data(example_me)
-me_list <- loadBoundariesToME(example_me)
+data(small_me, package = "MoleculeExperiment")
+me_list <- loadBoundariesToME(small_me)
 }
