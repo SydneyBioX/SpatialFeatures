@@ -367,22 +367,19 @@ compute_cell_entropy <- function(cell_segments_mat) {
 #' @export
 #' @param mat A matrix to compute entropy for.
 #' @return A data frame of entropy values for the matrix.
-matrix_entropy <- function(mat) {
+matrix_entropy <- function(mat, nCores = 1) {
   mat <- as.matrix(mat)  # Convert dgCMatrix to a regular matrix if necessary
   cells <- get_cells(mat)
-  no_of_cores <- 10  # Reserve one core for the system
-
+  
   results <- mclapply(cells, function(cell) {
     cell_segments_mat <- extract_cell_segments(mat, cell)
     compute_cell_entropy(cell_segments_mat)
-  }, mc.cores = no_of_cores)
-
+  }, mc.cores = nCores)
+  
   df_entropy <- as.data.frame(do.call(cbind, results))
   rownames(df_entropy) <- rownames(mat)
-
-  # Construct the column names to reflect the original cells
   colnames(df_entropy) <- cells
-
+  
   return(df_entropy)
 }
 
@@ -433,7 +430,7 @@ compute_central_coordinates <- function(me, assay_name = "cell") {
 #' # Assuming `me_obj` is your Molecule Experiment object
 #' segmented_regions <- split_rectangle(me_obj)
 #' }
-split_dataframe_by_region <- function(df, regions_segments) {
+split_dataframe_by_region <- function(df, regions_segments, nCores = 1) {
   # Create an empty data.frame with the same columns as df
   empty_df <- data.frame(lapply(df, function(col) numeric(0)))
 
@@ -451,7 +448,7 @@ split_dataframe_by_region <- function(df, regions_segments) {
     } else {
       return(filtered_df)
     }
-  }, mc.cores = 10) # Setting the number of cores to 10
+  }, mc.cores = nCores) # Setting the number of cores to 10
 
   return(df_list)
 }

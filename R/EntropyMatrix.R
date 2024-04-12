@@ -15,7 +15,7 @@
 #' em = EntropyMatrix(data_obj, assayName = "sub-sector")
 #' }
 
-EntropyMatrix <- function(me, assayNames, ...) {
+EntropyMatrix <- function(me, assayNames, nCores = 1, ...) {
   # Ensure assayNames are valid
   if (!all(assayNames %in% c("sub_sector", "sub_concentric", 'sub_combo', "super_sector", "super_concentric", "super_combo"))) {
     stop("Invalid assayName(s) provided!")
@@ -23,8 +23,8 @@ EntropyMatrix <- function(me, assayNames, ...) {
   
   # Generate a list of entropy matrices
   entropy_matrices <- lapply(assayNames, function(assay) {
-    counts_matrix <- CountsMatrix(me, assay, ...)
-    matrix_entropy(counts_matrix)
+    counts_matrix <- CountsMatrix(me, assay, nCores = nCores, ...)
+    matrix_entropy(counts_matrix, nCores = nCores)
   })
   
   # Name the list based on the assay names

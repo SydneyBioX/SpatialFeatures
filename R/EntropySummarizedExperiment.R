@@ -11,12 +11,12 @@
 #' @examples
 #' \dontrun{
 #' # Assuming `em_list_full` is your list of data frames and `me` is your Molecule Experiment object
-#' se <- createSummarizedExperiment(df_list = em_list_full, me = me)
+#' se <- createSummarizedExperiment(df_list = em_list_full, me = me, nCores = 1)
 #' }
 #' @export
 #' @import SummarizedExperiment
 #' @import SpatialFeatures
-EntropySummarizedExperiment <- function(df_list, me) {
+EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
   
   # 1. Assay Data: Using countMolecules function to get assay data.
   # Creating the assay_data
@@ -31,7 +31,7 @@ EntropySummarizedExperiment <- function(df_list, me) {
                                                                           moleculesAssay = "detected", 
                                                                           boundariesAssay = "cell", 
                                                                           matrixOnly = TRUE, 
-                                                                          nCores = 10)))
+                                                                          nCores = nCores)))
   
   # Adding a prefix to the row names of genecount to differentiate it
   rownames(genecount) <- paste("genecount", rownames(genecount), sep="_")

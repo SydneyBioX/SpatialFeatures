@@ -16,10 +16,10 @@
 #' cm = CountsMatrix(data_obj, assayName = "sub-sector")
 #' }
 
-CountsMatrix <- function(me, assayName, ...) {
+CountsMatrix <- function(me, assayName, nCores = 1, ...) {
   # Assuming 'me' is globally available or should pass it as an argument
-  counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, ...)
-
+  counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, nCores = nCores, ...)
+  
   # Determine which method to use for counts matrix transformation
   if (assayName == "sub_sector") {
     return(counts_matrix)

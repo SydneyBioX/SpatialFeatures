@@ -4,7 +4,7 @@
 \alias{loadBoundariesToMEforAll}
 \title{Load Boundaries to Molecule Experiment Object}
 \usage{
-loadBoundariesToMEforAll(me, k = 5)
+loadBoundariesToMEforAll(me, k = 5, nCores = 1)
 }
 \arguments{
 \item{me}{A Molecule Experiment (ME) object that needs its boundaries populated based

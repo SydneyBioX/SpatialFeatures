@@ -22,7 +22,7 @@
 #' data(example_me)
 #' me_list <- loadBoundariesToMEforAll(example_me)
 
-loadBoundariesToMEforAll <- function(me, k = 5) {
+loadBoundariesToMEforAll <- function(me, k = 5, nCores = 1) {
   
   regions_segments <- split_rectangle(me)
   
@@ -40,7 +40,7 @@ loadBoundariesToMEforAll <- function(me, k = 5) {
     moleculesMEList_current <- list()
     boundariesMEList_current <- list()
     
-    df_bdy = split_dataframe_by_region(df_boundaries, regions_segments)[[i]]
+    df_bdy = split_dataframe_by_region(df_boundaries, regions_segments, nCores = nCores)[[i]]
     
     if(nrow(df_bdy) == 0) {
       return("null")

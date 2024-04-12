@@ -4,7 +4,7 @@
 \alias{CountsMatrix}
 \title{Extract Counts Matrix from Molecule Experiment based on Assay Type}
 \usage{
-CountsMatrix(me, assayName, ...)
+CountsMatrix(me, assayName, nCores = 1, ...)
 }
 \arguments{
 \item{me}{A Molecule Experiment object.}

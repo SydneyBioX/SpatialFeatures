@@ -4,7 +4,7 @@
 \alias{EntropySummarizedExperiment}
 \title{Create a SummarizedExperiment Object from a List of Data Frames}
 \usage{
-EntropySummarizedExperiment(df_list, me)
+EntropySummarizedExperiment(df_list, me, nCores = 1)
 }
 \arguments{
 \item{df_list}{A list of data frames, each containing assay data.}
@@ -21,6 +21,6 @@ constructs a SummarizedExperiment object with the specified data structure.
 \examples{
 \dontrun{
 # Assuming `em_list_full` is your list of data frames and `me` is your Molecule Experiment object
-se <- createSummarizedExperiment(df_list = em_list_full, me = me)
+se <- createSummarizedExperiment(df_list = em_list_full, me = me, nCores = 1)
 }
 }

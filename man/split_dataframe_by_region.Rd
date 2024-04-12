@@ -4,7 +4,7 @@
 \alias{split_dataframe_by_region}
 \title{Split Rectangle into Regions Based on Central Coordinates}
 \usage{
-split_dataframe_by_region(df, regions_segments)
+split_dataframe_by_region(df, regions_segments, nCores = 1)
 }
 \arguments{
 \item{me}{A Molecule Experiment (ME) object that holds boundary data.}

@@ -4,7 +4,7 @@
 \alias{matrix_entropy}
 \title{Compute entropy for the entire matrix}
 \usage{
-matrix_entropy(mat)
+matrix_entropy(mat, nCores = 1)
 }
 \arguments{
 \item{mat}{A matrix to compute entropy for.}
