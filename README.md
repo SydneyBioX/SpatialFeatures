@@ -7,7 +7,7 @@ The usage instructions for the package can be found in the vignettes folder.
 ## Installation
 
 You can install the SpatialFeatures from
-[GitHub](https://github.com/) with:
+[GitHub]([https://github.com/](https://github.com/SydneyBioX/SpatialFeatures)) with:
 
 ``` r
 # install.packages("devtools")
