@@ -1,6 +1,9 @@
 # SpatialFeatures
+**Guan's Honours Project**
+
 An R package to incorprate features from molecule-resolved spatial transcriptomics data.
-Guan's Honours Project
+
+The usage instructions for the package can be found in the vignettes folder.
 
 ## Installation
 
