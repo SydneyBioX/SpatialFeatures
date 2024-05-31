@@ -11,6 +11,8 @@ CountsMatrix(me, assayName, nCores = 1, ...)
 
 \item{assayName}{A character string indicating the assay type. Supported values include
 "sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
+
+\item{nCores}{Number of cores for parallel processing (default 1)}
 }
 \value{
 A counts matrix corresponding to the specified assay type.

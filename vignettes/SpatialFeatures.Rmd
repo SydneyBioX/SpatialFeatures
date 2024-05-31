@@ -1,50 +1,38 @@
 ---
 title: "An introduction to the SpatialFeatures Class"
-date: "`r BiocStyle::doc_date()`"
+date: "`r Sys.Date()`"
 author:
-- name: Guan Gui
+- name: Guan Gui, Shila Ghazanfar
   affiliation:
   - School of Mathematics and Statistics, The University of Sydney, Sydney, NSW, 2006, Australia
   - Charles Perkins Centre, The University of Sydney, Sydney, NSW, 2006, Australia
   - Sydney Precision Data Science Centre, The University of Sydney, Sydney, NSW, 2006, Australia
+output: BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{"Introduction to SpatialFeatures"}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-output: 
-  BiocStyle::html_document
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Getting started: SpatialFeatures}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
-```{r global-options, include=FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
+  collapse = TRUE,
   message = FALSE,
   warning = FALSE,
-  collapse = TRUE,
   comment = "#>"
 )
-library(BiocStyle)
 ```
 
-# Installation
+# SpatialFeatures
 The R package `SpatialFeatures` contains functions to extract features from molecule-resolved spatial transcriptomics data using objects from the `MoleculeExperiment` class.
-
-## Installation
-You can install the latest release of `SpatialFeatures` from GitHub using the devtools package:
-```{r}
-if (!require("devtools", quietly = TRUE)) {
-  install.packages("devtools")
-}
-devtools::install_github("SydneyBioX/SpatialFeatures")
-```
 
 # Demonstrating Major Functions and Visualizing SpatialFeatures
 
 ## Load Required Libraries
 ```{r}
-library(ggplot2)
-library(devtools)
 library(SpatialFeatures)
 library(MoleculeExperiment)
+library(ggplot2)
 library(SummarizedExperiment)
 library(dplyr)
 ```

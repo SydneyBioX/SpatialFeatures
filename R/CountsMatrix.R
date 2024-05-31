@@ -1,11 +1,12 @@
 #' Extract Counts Matrix from Molecule Experiment based on Assay Type
 #'
-#' @description 
+#' @description
 #' This function retrieves a counts matrix from a Molecule Experiment object based on the given assay type.
 #'
 #' @param me A Molecule Experiment object.
-#' @param assayName A character string indicating the assay type. Supported values include 
+#' @param assayName A character string indicating the assay type. Supported values include
 #' "sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".
+#' @param nCores Number of cores for parallel processing (default 1)
 #'
 #' @return A counts matrix corresponding to the specified assay type.
 #' @export
@@ -19,7 +20,7 @@
 CountsMatrix <- function(me, assayName, nCores = 1, ...) {
   # Assuming 'me' is globally available or should pass it as an argument
   counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, nCores = nCores, ...)
-  
+
   # Determine which method to use for counts matrix transformation
   if (assayName == "sub_sector") {
     return(counts_matrix)
