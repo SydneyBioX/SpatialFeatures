@@ -14,14 +14,15 @@
 #' and updates the original ME object with this new data.
 #'
 #' @param me A Molecule Experiment (ME) object that needs its boundaries populated based
-#'        on the assays mentioned above.
+#' on the assays mentioned above.
+#' @param k Number of levels to calculate features
+#' @param nCores Number of cores
 #' @return An enriched Molecule Experiment (ME) object that includes boundary information
 #'         for the supported assays.
 #' @export
 #' @examples
 #' data(example_me)
 #' me_list <- loadBoundariesToMEforAll(me)
-
 loadBoundariesToMEforAll <- function(me, k = 5, nCores = 1) {
 
   regions_segments <- split_rectangle(me)
@@ -46,7 +47,7 @@ loadBoundariesToMEforAll <- function(me, k = 5, nCores = 1) {
       return("null")
     }
 
-    boundariesMEList_current <- dataframeToMEList(df = df_bdy, dfType = "boundaries", assayName = "cell",
+    boundariesMEList_current <- MoleculeExperiment::dataframeToMEList(df = df_bdy, dfType = "boundaries", assayName = "cell",
                                                   sampleCol = "sample_id", factorCol = "segment_id",
                                                   xCol = "x_location", yCol = "y_location",
                                                   keepCols = "essential", scaleFactor = 1)
@@ -79,18 +80,18 @@ loadBoundariesToMEforAll <- function(me, k = 5, nCores = 1) {
         filtered_molecule$x_coords <- filtered_molecule$x_location
         filtered_molecule$y_coords <- filtered_molecule$y_location
 
-        moleculesMEList_current <- dataframeToMEList(filtered_molecule, dfType = "molecules", assayName = "detected",
+        moleculesMEList_current <- MoleculeExperiment::dataframeToMEList(filtered_molecule, dfType = "molecules", assayName = "detected",
                                                      sampleCol = "sample_id", factorCol = "features", xCol = "x_coords",
                                                      yCol = "y_coords")
       }
 
-      results_list[[assayName]] <- dataframeToMEList(df = df_tmp, dfType = "boundaries", assayName = assayName,
+      results_list[[assayName]] <- MoleculeExperiment::dataframeToMEList(df = df_tmp, dfType = "boundaries", assayName = assayName,
                                                      sampleCol = "sample_id", factorCol = "segment_id",
                                                      xCol = "x_location", yCol = "y_location",
                                                      keepCols = "essential", scaleFactor = 1)
     }
 
-    me_copy <- MoleculeExperiment(
+    me_copy <- MoleculeExperiment::MoleculeExperiment(
       molecules = moleculesMEList_current,
       boundaries = boundariesMEList_current
     )

@@ -30,8 +30,8 @@
 #' @importFrom purrr map_dfr
 #' @importFrom parallel mclapply
 #' @examples
-#' data(small_me, package = "MoleculeExperiment")
-#' feature_data_list <- GenerateFeatureData(small_me)
+#' data(example_me, package = "SpatialFeatures")
+#' feature_data_list <- GenerateFeatureData(me)
 #' sub_sector_data <- feature_data_list$sub_sector
 
 GenerateFeatureData <- function(me, k = 5) {

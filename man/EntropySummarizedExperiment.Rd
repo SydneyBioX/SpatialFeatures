@@ -10,6 +10,8 @@ EntropySummarizedExperiment(df_list, me, nCores = 1)
 \item{df_list}{A list of data frames, each containing assay data.}
 
 \item{me}{A Molecule Experiment object.}
+
+\item{nCores}{Number of cores (default 1)}
 }
 \value{
 A SummarizedExperiment object.

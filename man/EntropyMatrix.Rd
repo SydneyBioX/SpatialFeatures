@@ -9,8 +9,12 @@ EntropyMatrix(me, assayNames, nCores = 1, ...)
 \arguments{
 \item{me}{A Molecule Experiment object.}
 
-\item{assayName}{A character string specifying the assay type. Supported values include
+\item{assayNames}{A character string specifying the assay type. Supported values include
 "sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
+
+\item{nCores}{Number of cores}
+
+\item{...}{arguments passing to CountsMatrix}
 }
 \value{
 A matrix representing the entropy values corresponding to the given assay type.

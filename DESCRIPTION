@@ -14,8 +14,10 @@ Depends: R (>= 4.0.0),
     SummarizedExperiment,
     dplyr,
     purrr,
-    RANN
-Imports: terra
-Suggests: knitr, rmarkdown
+    parallel
+Imports: terra, RANN, methods
+Suggests:
+    knitr,
+    BiocStyle
 VignetteBuilder: knitr
 biocViews: Spatial

@@ -5,6 +5,7 @@
 #'
 #' @param df_list A list of data frames, each containing assay data.
 #' @param me A Molecule Experiment object.
+#' @param nCores Number of cores (default 1)
 #'
 #' @return A SummarizedExperiment object.
 #'
@@ -17,7 +18,7 @@
 #' @import SummarizedExperiment
 #' @import SpatialFeatures
 EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
-  
+
   # 1. Assay Data: Using countMolecules function to get assay data.
   # Creating the assay_data
   assay_data <- do.call(rbind, lapply(names(df_list), function(assayName) {
@@ -25,33 +26,33 @@ EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
     rownames(df) <- paste(assayName, rownames(df), sep="_")
     return(df)
   }))
-  
+
   # Generating the genecount
-  genecount <- as.data.frame(as.matrix(MoleculeExperiment::countMolecules(me, 
-                                                                          moleculesAssay = "detected", 
-                                                                          boundariesAssay = "cell", 
-                                                                          matrixOnly = TRUE, 
+  genecount <- as.data.frame(as.matrix(MoleculeExperiment::countMolecules(me,
+                                                                          moleculesAssay = "detected",
+                                                                          boundariesAssay = "cell",
+                                                                          matrixOnly = TRUE,
                                                                           nCores = nCores)))
-  
+
   # Adding a prefix to the row names of genecount to differentiate it
   rownames(genecount) <- paste("genecount", rownames(genecount), sep="_")
-  
+
   # Rbinding the assay_data and genecount together
   assay_data <- rbind(assay_data, genecount)
-  
+
   # 2. Row Data
   rowData <- data.frame(
     FeatureCategory = gsub("_.*", "", rownames(assay_data)),
     FeatureGene = gsub(".*_", "", rownames(assay_data))
   )
-  
+
   # Translate "sub" and "super" prefixes to "Subcellular" and "Supercellular" respectively
   rowData$FeatureCategory <- gsub("^sub", "Subcellular", rowData$FeatureCategory)
   rowData$FeatureCategory <- gsub("^super", "Supercellular", rowData$FeatureCategory)
   rowData$FeatureCategory <- gsub("^genecount", "Genecount", rowData$FeatureCategory)
-  
+
   # 3. Column Data
-  cell_df <- SpatialFeatures::extract_boundaries_and_centroids(me)[[2]]
+  cell_df <- extract_boundaries_and_centroids(me)[[2]]
   # Renaming the columns for clarity and ease of use
   colnames(cell_df) <- c("x_location", "y_location", "Cell", "Sample_id", "x_central", "y_central")
   # Now, create numericList for each cell
@@ -62,13 +63,13 @@ EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
   colData$boundaries <- I(cell_df_list)
   # Convert Cell column to a format compatible with the columns in assay_data
   colData$Cell <- paste0(colData$Sample_id, ".", colData$Cell)
-  
+
   # Create the SummarizedExperiment object
-  se <- SummarizedExperiment(
+  se <- SummarizedExperiment::SummarizedExperiment(
     assays = list(counts = as.matrix(assay_data)),
     rowData = rowData,
     colData = colData
   )
-  
+
   return(se)
 }

@@ -9,6 +9,10 @@ loadBoundariesToMEforAll(me, k = 5, nCores = 1)
 \arguments{
 \item{me}{A Molecule Experiment (ME) object that needs its boundaries populated based
 on the assays mentioned above.}
+
+\item{k}{Number of levels to calculate features}
+
+\item{nCores}{Number of cores}
 }
 \value{
 An enriched Molecule Experiment (ME) object that includes boundary information

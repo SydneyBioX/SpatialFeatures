@@ -14,15 +14,15 @@
 #' # mcc_matrix <- MCCMatrix(small_me)
 MCCMatrix <- function(me) {
   # Step 1: Extract boundaries and calculate neighbors
-  results <- SpatialFeatures::extract_data_and_neighbors(me)
+  results <- extract_data_and_neighbors(me)
   # Step 2: Count molecules in the SpatialExperiment object
-  cell <- SpatialFeatures::count_molecules_from_SE(me)
+  cell <- count_molecules_from_SE(me)
   mat <- assay(cell, "counts")
   # Step 3: Calculate neighbor sums
   combined_mat <- calculate_neighbour_sums(mat, results$cellneighbours)
   # Step 4: Order and convert to sparse matrix
-  mat_sparse_ordered <- SpatialFeatures::order_and_sparse_matrix(combined_mat)
+  mat_sparse_ordered <- order_and_sparse_matrix(combined_mat)
   # Step 5: Compute the MCC matrix
-  mcc_matrix <- SpatialFeatures::compute_mcc_matrix(mat_sparse_ordered)
+  mcc_matrix <- compute_mcc_matrix(mat_sparse_ordered)
   return(mcc_matrix)
 }
