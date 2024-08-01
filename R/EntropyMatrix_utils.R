@@ -29,32 +29,24 @@ annuli_counts = function(mat) {
 #' @param ... arguments passing to MoleculeExperiment::countMolecules
 #'
 #' @return A counts matrix corresponding to the specified assay type.
-#' @export
 #' @importFrom MoleculeExperiment countMolecules
 #' @examples
 #' \dontrun{
 #' # Assuming `data_obj` is your Molecule Experiment object
 #' cm = CountsMatrix(data_obj, assayName = "sub-sector")
 #' }
-
 CountsMatrix <- function(me, assayName, nCores = 1, ...) {
-  # Assuming 'me' is globally available or should pass it as an argument
   counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, nCores = nCores, ...)
 
-  # Determine which method to use for counts matrix transformation
-  if (assayName == "sub_sector") {
+  if (assayName %in% c("sub_sector", "super_sector")) {
     return(counts_matrix)
-  } else if (assayName == "sub_concentric") {
-    return(annuli_counts(counts_matrix))
-  } else if (assayName == "super_sector") {
-    return(counts_matrix)
-  } else if (assayName == "super_concentric") {
-    # Convert to annuli counts and then remove inner polygons
-    out_concentric_super <- annuli_counts(counts_matrix)
-    return(out_concentric_super)
-  } else {
-    stop("Unknown assay type!")
   }
+
+  if (assayName %in% c("sub_concentric", "super_concentric")) {
+    return(annuli_counts(counts_matrix))
+  }
+
+  stop("Unknown assay type!")
 }
 
 
@@ -90,20 +82,26 @@ calculate_entropy <- function(p) {
   return(-sum(p * log(p)))
 }
 
+#' Calculate prop for entropy
+#'
+#' @param counts a vector of integers
+#' @return the proportion
+countsprop = function(counts) {
+  total <- sum(counts)
+  if (total == 0) {
+    return(rep(0, length(counts)))
+  } else {
+    return(counts / total)
+  }
+}
+
 #' Compute entropy for a given matrix
 #'
 #' @param cell_segments_mat A matrix to compute entropy for.
 #' @return A vector of entropy values.
 compute_cell_entropy <- function(cell_segments_mat) {
   # Convert to proportions
-  proportions <- apply(cell_segments_mat, 1, function(counts) {
-    total <- sum(counts)
-    if (total == 0) {
-      return(rep(0, length(counts)))
-    } else {
-      return(counts / total)
-    }
-  })
+  proportions <- apply(cell_segments_mat, 1, countsprop)
 
   # Compute entropy for each gene
   gene_entropies <- apply(proportions, 2, calculate_entropy)
@@ -114,7 +112,6 @@ compute_cell_entropy <- function(cell_segments_mat) {
 #' @param mat A matrix to compute entropy for.
 #' @param nCores Number of cores
 #' @return A data frame of entropy values for the matrix.
-#' @export
 matrix_entropy <- function(mat, nCores = 1) {
   mat <- as.matrix(mat)  # Convert dgCMatrix to a regular matrix if necessary
   cells <- get_cells(mat)

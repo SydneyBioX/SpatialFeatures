@@ -29,8 +29,6 @@ knitr::opts_chunk$set(
 # SpatialFeatures
 The R package `SpatialFeatures` contains functions to extract features from molecule-resolved spatial transcriptomics data using objects from the `MoleculeExperiment` class.
 
-# Demonstrating Major Functions and Visualizing SpatialFeatures
-
 ## Load Required Libraries
 ```{r}
 library(SpatialFeatures)
@@ -50,27 +48,29 @@ me <- readXenium(repoDir, keepCols = "essential")
 me
 ```
 
-## Generate `SpatialFeature` Data Based on Different Segmentation Methods
+## Quick start
 
-This function `GenerateFeatureData(me)` processes the given data (`me`) and returns feature data based on multiple assay types, including:
+The `spatialFeatures` function performs three key steps
+
+```{r}
+se = spatialFeatures(me)
+se
+```
+
+# Step-by-step SpatialFeatures
+
+## Generate new boundaries based on subcellular and supercellular features
+
+This function `loadBoundaries(me)` processes the given data (`me`) and returns feature data based on multiple assay types, including:
 - Sub-Sector
 - Sub-Concentric
 - Super-Sector
 - Super-Concentric
 ```{r}
-feature_data_list <- SpatialFeatures::GenerateFeatureData(me)
-lapply(feature_data_list, head, n = 4)
+me <- SpatialFeatures::loadBoundaries(me)
+me
 ```
 
-
-## Load boundaries to `MoleculeExperiment` object  
-
-This function `loadBoundariesToMEforAll(me)` divides the image data into equal areas and processes each area internally to extract the respective boundary features, updating the `MoleculeExperiment` object with these new features.
-```{r warning=FALSE}
-boundaries_me_list <- SpatialFeatures::loadBoundariesToMEforAll(me)
-me_4 = boundaries_me_list[[4]]
-me_4
-```
 
 ## Draw the Feature Boundary Plots
 
@@ -78,41 +78,41 @@ Visualize the spatial molecule and cell boundary map with SpatialFeature boundar
 ```{r}
 ggplot_me() +
   # add molecule points and colour by feature name
-  geom_point_me(me_4, byColour = "feature_id", size = 0.1) +
+  geom_point_me(me, byColour = "feature_id", size = 0.1) +
   # add nuclei segments and colour the border with red
-  geom_polygon_me(me_4, assayName = "sub_sector", fill = NA, colour = "red") +
+  geom_polygon_me(me, assayName = "sub_sector", fill = NA, colour = "red") +
   # add cell segments and colour by cell id
-  geom_polygon_me(me_4, byFill = "segment_id", colour = "black", alpha = 0.1) +
+  geom_polygon_me(me, byFill = "segment_id", colour = "black", alpha = 0.1) +
   # zoom in to selected patch area
   coord_cartesian(xlim = c(4875, 4950), ylim = c(6385, 6455))
 
 ggplot_me() +
   # add molecule points and colour by feature name
-  geom_point_me(me_4, byColour = "feature_id", size = 0.1) +
+  geom_point_me(me, byColour = "feature_id", size = 0.1) +
   # add nuclei segments and colour the border with red
-  geom_polygon_me(me_4, assayName = "sub_concentric", fill = NA, colour = "red") +
+  geom_polygon_me(me, assayName = "sub_concentric", fill = NA, colour = "red") +
   # add cell segments and colour by cell id
-  geom_polygon_me(me_4, byFill = "segment_id", colour = "black", alpha = 0.1) +
+  geom_polygon_me(me, byFill = "segment_id", colour = "black", alpha = 0.1) +
   # zoom in to selected patch area
   coord_cartesian(xlim = c(4875, 4950), ylim = c(6385, 6455))
 
 ggplot_me() +
   # add molecule points and colour by feature name
-  geom_point_me(me_4, byColour = "feature_id", size = 0.1) +
+  geom_point_me(me, byColour = "feature_id", size = 0.1) +
   # add nuclei segments and colour the border with red
-  geom_polygon_me(me_4, assayName = "super_sector", fill = NA, colour = "blue") +
+  geom_polygon_me(me, assayName = "super_sector", fill = NA, colour = "blue") +
   # add cell segments and colour by cell id
-  geom_polygon_me(me_4, byFill = "segment_id", colour = "black", alpha = 0.1) +
+  geom_polygon_me(me, byFill = "segment_id", colour = "black", alpha = 0.1) +
   # zoom in to selected patch area
   coord_cartesian(xlim = c(4875, 4950), ylim = c(6385, 6455))
 
 ggplot_me() +
   # add molecule points and colour by feature name
-  geom_point_me(me_4, byColour = "feature_id", size = 0.1) +
+  geom_point_me(me, byColour = "feature_id", size = 0.1) +
   # add nuclei segments and colour the border with red
-  geom_polygon_me(me_4, assayName = "super_concentric", fill = NA, colour = "blue") +
+  geom_polygon_me(me, assayName = "super_concentric", fill = NA, colour = "blue") +
   # add cell segments and colour by cell id
-  geom_polygon_me(me_4, byFill = "segment_id", colour = "black", alpha = 0.1) +
+  geom_polygon_me(me, byFill = "segment_id", colour = "black", alpha = 0.1) +
   # zoom in to selected patch area
   coord_cartesian(xlim = c(4875, 4950), ylim = c(6385, 6455))
 ```
@@ -121,59 +121,36 @@ ggplot_me() +
 
 This function `EntropyMatrix()` computes the entropy of a counts matrix from a `MoleculeExperiment` object based on the given assay type.
 ```{r}
-em_list_4 = SpatialFeatures::EntropyMatrix(me_4, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
-lapply(em_list_4, head, n = 4)
+ent = SpatialFeatures::EntropyMatrix(me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
+lapply(ent, head, n = 4)
 ```
 
 ## Create `SummarizedExperiment` Object
 
 This function `EntropySummarizedExperiment()` Convert the entropy matrix into a `SummarizedExperiment` object.
 ```{r}
-se_4 = SpatialFeatures::EntropySummarizedExperiment(em_list_4, me_4)
-se_4
+se = SpatialFeatures::EntropySummarizedExperiment(ent, me)
+se
 ```
 
-# Full Process Tutorial: From `MoleculeExperiment` to `SummarizedExperiment`
-This section provides a complete tutorial on transforming an input `MoleculeExperiment` (me) object into a final output `SummarizedExperiment` (se) object.
+If you also want the gene counts, you can include the parameter
 
-## Read the Original MoleculeExperiment Object
-Load the example data from the `MoleculeExperiment` package:
 ```{r}
-repoDir <- system.file("extdata", package = "MoleculeExperiment")
-repoDir <- paste0(repoDir, "/xenium_V1_FF_Mouse_Brain")
-
-me <- readXenium(repoDir, keepCols = "essential")
+se = EntropySummarizedExperiment(ent, me, includeCounts = TRUE)
+se
 ```
 
-## Load `SpatialFeatures` Boundaries
-Load the `SpatialFeatures` boundaries into the `MoleculeExperiment` object:
+## Inspect the SpatialFeatures SummarizedExperiment Object
+Check the structure and content of the SummarizedExperiment object:
 ```{r}
-melist <- loadBoundariesToMEforAll(me, k = 5)
+se
+colData(se)
+rowData(se)
 ```
 
-## Compute and Combine the Entropy Matrices
-Initialize an Empty List to Store Split `SummarizedExperiment` Objects. Loop through the desired range of r values, compute the entropy matrices, and combine them into a single `SummarizedExperiment` object:
+# Finish
+
 ```{r}
-se_list <- list()
-
-for (r in 1:12) {
-  if (melist[r] == "null") next
-  
-  splitted_me <- melist[[r]]
-  em_list <- SpatialFeatures::EntropyMatrix(splitted_me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
-  se_object <- SpatialFeatures::EntropySummarizedExperiment(em_list, splitted_me)
-  se_list[[r]] <- se_object
-}
-
-se_list <- Filter(Negate(is.null), se_list)
-combined_se <- SpatialFeatures::combineSE(se_list)
-```
-
-## Inspect the Combined SummarizedExperiment Object
-Check the structure and content of the combined SummarizedExperiment object:
-```{r}
-combined_se
-colData(combined_se)
-rowData(combined_se)
+sessionInfo()
 ```
 

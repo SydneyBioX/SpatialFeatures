@@ -1,15 +1,18 @@
 Package: SpatialFeatures
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: GPL-3
+Title: Entropy-based subcellular and supercellular features for molecule-resolved spatial omics datasets
+Version: 0.0.1
+Authors@R: c(
+    person("Shila", "Ghazanfar", email = "shazanfar@gmail.com", role = c("aut", "cre", "ctb")),
+    person("Guan", "Gui", role = "ctb")
+    )
+Description: This package uses molecule-level information to extract new cell-level features as an alternative to 
+  simply calculating gene counts. By using four categories, sub-sector, super-sector, super-sector and super-concentric
+  segmentations of cells, SpatialFeatures then uses entropy as a metric to arrive at a cell-by-gene level feature.
+License: GPL-2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-Depends: R (>= 4.0.0),
+Depends: R (>= 4.4.0),
     MoleculeExperiment,
     SummarizedExperiment,
     dplyr,

@@ -5,28 +5,28 @@
 #'
 #' @param df_list A list of data frames, each containing assay data.
 #' @param me A Molecule Experiment object.
+#' @param includeCounts logical (default FALSE) whether to include gene counts as features
 #' @param nCores Number of cores (default 1)
 #'
 #' @return A SummarizedExperiment object.
 #'
-#' @examples
-#' \dontrun{
-#' # Assuming `em_list_full` is your list of data frames and `me` is your Molecule Experiment object
-#' se <- createSummarizedExperiment(df_list = em_list_full, me = me, nCores = 1)
-#' }
 #' @export
 #' @import SummarizedExperiment
 #' @import SpatialFeatures
-EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
+#' @importFrom MoleculeExperiment countMolecules
+#' @examples
+#' data(example_me)
+#' me <- loadBoundaries(me)
+#' ent <- EntropyMatrix(me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
+#' se <- EntropySummarizedExperiment(ent, me)
+#' se
+EntropySummarizedExperiment <- function(df_list, me, includeCounts = FALSE, nCores = 1) {
 
   # 1. Assay Data: Using countMolecules function to get assay data.
   # Creating the assay_data
-  assay_data <- do.call(rbind, lapply(names(df_list), function(assayName) {
-    df <- df_list[[assayName]]
-    rownames(df) <- paste(assayName, rownames(df), sep="_")
-    return(df)
-  }))
+  assay_data <- make_assay_data(df_list)
 
+  if (includeCounts) {
   # Generating the genecount
   genecount <- as.data.frame(as.matrix(MoleculeExperiment::countMolecules(me,
                                                                           moleculesAssay = "detected",
@@ -39,6 +39,7 @@ EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
 
   # Rbinding the assay_data and genecount together
   assay_data <- rbind(assay_data, genecount)
+  }
 
   # 2. Row Data
   rowData <- data.frame(
@@ -66,7 +67,7 @@ EntropySummarizedExperiment <- function(df_list, me, nCores = 1) {
 
   # Create the SummarizedExperiment object
   se <- SummarizedExperiment::SummarizedExperiment(
-    assays = list(counts = as.matrix(assay_data)),
+    assays = list(spatialFeatures = as.matrix(assay_data)),
     rowData = rowData,
     colData = colData
   )

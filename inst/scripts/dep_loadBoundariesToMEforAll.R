@@ -30,7 +30,7 @@ loadBoundariesToMEforAll <- function(me, k = 5, nCores = 1) {
   assay_names <- c("sub_sector", "sub_concentric",
                    "super_sector", "super_concentric")
 
-  results_all <- SpatialFeatures::GenerateFeatureData(me, k = k)
+  results_all <- GenerateFeatureData(me, k = k)
 
   df_boundaries <- MoleculeExperiment::boundaries(me, assayName = "cell", flatten = TRUE)
 

@@ -4,13 +4,13 @@
 \alias{EntropyMatrix}
 \title{Calculate the Entropy of a Counts Matrix}
 \usage{
-EntropyMatrix(me, assayNames, nCores = 1, ...)
+EntropyMatrix(me, featureTypes, nCores = 1, ...)
 }
 \arguments{
 \item{me}{A Molecule Experiment object.}
 
-\item{assayNames}{A character string specifying the assay type. Supported values include
-"sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
+\item{featureTypes}{A character string specifying the feature type. Supported values include
+"sub_sector", "sub_concentric", "super_sector", and "super_concentric".}
 
 \item{nCores}{Number of cores}
 
@@ -23,8 +23,8 @@ A matrix representing the entropy values corresponding to the given assay type.
 This function computes the entropy of a counts matrix from a Molecule Experiment object based on the given assay type.
 }
 \examples{
-\dontrun{
-# Assuming `data_obj` is your Molecule Experiment object
-em = EntropyMatrix(data_obj, assayName = "sub-sector")
-}
+data(example_me)
+me <- loadBoundaries(me)
+ent <- EntropyMatrix(me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
+lapply(ent, head, n = 4)
 }
