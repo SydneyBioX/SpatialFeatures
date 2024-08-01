@@ -24,3 +24,4 @@ Suggests:
     BiocStyle
 VignetteBuilder: knitr
 biocViews: Spatial
+URL: https://sydneybiox.github.io/SpatialFeatures/
