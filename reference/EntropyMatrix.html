@@ -51,7 +51,7 @@
 
 <dt id="arg-featuretypes">featureTypes<a class="anchor" aria-label="anchor" href="#arg-featuretypes"></a></dt>
 <dd><p>A character string specifying the feature type. Supported values include
-"sub_sector", "sub_concentric", "super_sector", and "super_concentric".</p></dd>
+"subsector", "subconcentric", "supersector", and "superconcentric".</p></dd>
 
 
 <dt id="arg-ncores">nCores<a class="anchor" aria-label="anchor" href="#arg-ncores"></a></dt>
@@ -71,9 +71,9 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_me</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">me</span> <span class="op">&lt;-</span> <span class="fu"><a href="loadBoundaries.html">loadBoundaries</a></span><span class="op">(</span><span class="va">me</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ent</span> <span class="op">&lt;-</span> <span class="fu">EntropyMatrix</span><span class="op">(</span><span class="va">me</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sub_sector"</span>, <span class="st">"sub_concentric"</span>, <span class="st">"super_sector"</span>, <span class="st">"super_concentric"</span><span class="op">)</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ent</span> <span class="op">&lt;-</span> <span class="fu">EntropyMatrix</span><span class="op">(</span><span class="va">me</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subsector"</span>, <span class="st">"subconcentric"</span>, <span class="st">"supersector"</span>, <span class="st">"superconcentric"</span><span class="op">)</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ent</span>, <span class="va">head</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sub_sector</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $subsector</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2010300C02Rik     0.5623351     0.6931472     0.6365142     0.6931472</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Acsbg1            0.6931472     0.6931472     0.6931472     0.0000000</span>
@@ -95,7 +95,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adamts2                   0     0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adamtsl1                  0     0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $sub_concentric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $subconcentric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2010300C02Rik     0.5623351     0.6931472     0.6365142             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Acsbg1            0.6931472     0.0000000     0.6931472             0</span>
@@ -117,7 +117,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adamts2                   0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adamtsl1                  0             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $super_sector</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $supersector</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2010300C02Rik             0      1.332179     0.6931472     0.6931472</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Acsbg1                    0      0.000000     0.6931472     0.6931472</span>
@@ -139,7 +139,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adamts2           0.0000000     0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Adamtsl1          0.0000000     0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $super_concentric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $superconcentric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2010300C02Rik     1.5607104       1.05492     0.6931472     0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Acsbg1            0.6931472       0.00000     0.6931472     0.6931472</span>

@@ -38,7 +38,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_assay_data</span><span class="op">(</span><span class="va">df_list</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_assay_data</span><span class="op">(</span><span class="va">df_list</span>, concatenateFeatures <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -48,10 +48,15 @@
 <dl><dt id="arg-df-list">df_list<a class="anchor" aria-label="anchor" href="#arg-df-list"></a></dt>
 <dd><p>A list of data frames</p></dd>
 
+
+<dt id="arg-concatenatefeatures">concatenateFeatures<a class="anchor" aria-label="anchor" href="#arg-concatenatefeatures"></a></dt>
+<dd><p>logical whether to concatenate features (default FALSE)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A single data frame</p>
+    <p>if concatenateFeatures == TRUE, A single data frame, otherwise a list
+containing data frames</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

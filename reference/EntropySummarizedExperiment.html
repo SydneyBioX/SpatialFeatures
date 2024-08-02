@@ -41,7 +41,13 @@ constructs a SummarizedExperiment object with the specified data structure.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">EntropySummarizedExperiment</span><span class="op">(</span><span class="va">df_list</span>, <span class="va">me</span>, includeCounts <span class="op">=</span> <span class="cn">FALSE</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">EntropySummarizedExperiment</span><span class="op">(</span></span>
+<span>  <span class="va">df_list</span>,</span>
+<span>  <span class="va">me</span>,</span>
+<span>  includeCounts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  concatenateFeatures <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  nCores <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,6 +66,11 @@ constructs a SummarizedExperiment object with the specified data structure.</p>
 <dd><p>logical (default FALSE) whether to include gene counts as features</p></dd>
 
 
+<dt id="arg-concatenatefeatures">concatenateFeatures<a class="anchor" aria-label="anchor" href="#arg-concatenatefeatures"></a></dt>
+<dd><p>logical whether to concatenate all the features
+into a single assay (default FALSE). If FALSE the output SE object has multiple assays</p></dd>
+
+
 <dt id="arg-ncores">nCores<a class="anchor" aria-label="anchor" href="#arg-ncores"></a></dt>
 <dd><p>Number of cores (default 1)</p></dd>
 
@@ -73,16 +84,15 @@ constructs a SummarizedExperiment object with the specified data structure.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_me</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">me</span> <span class="op">&lt;-</span> <span class="fu"><a href="loadBoundaries.html">loadBoundaries</a></span><span class="op">(</span><span class="va">me</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ent</span> <span class="op">&lt;-</span> <span class="fu"><a href="EntropyMatrix.html">EntropyMatrix</a></span><span class="op">(</span><span class="va">me</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sub_sector"</span>, <span class="st">"sub_concentric"</span>, <span class="st">"super_sector"</span>, <span class="st">"super_concentric"</span><span class="op">)</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ent</span> <span class="op">&lt;-</span> <span class="fu"><a href="EntropyMatrix.html">EntropyMatrix</a></span><span class="op">(</span><span class="va">me</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subsector"</span>, <span class="st">"subconcentric"</span>, <span class="st">"supersector"</span>, <span class="st">"superconcentric"</span><span class="op">)</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu">EntropySummarizedExperiment</span><span class="op">(</span><span class="va">ent</span>, <span class="va">me</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">se</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SummarizedExperiment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 712 14 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dim: 178 14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> assays(1): spatialFeatures</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(712): sub_sector_2010300C02Rik sub_sector_Acsbg1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   super_concentric_Zfp536 super_concentric_Zfpm2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(2): FeatureCategory FeatureGene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> assays(4): subsector subconcentric supersector superconcentric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rownames(178): 2010300C02Rik Acsbg1 ... Zfp536 Zfpm2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(0):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(14): sample1.67500 sample1.67512 ... sample2.65070</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sample2.65071</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(5): Cell Sample_id x_central y_central boundaries</span>

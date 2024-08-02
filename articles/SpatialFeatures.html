@@ -122,12 +122,11 @@ steps</p>
 <code class="sourceCode R"><span><span class="va">se</span> <span class="op">=</span> <span class="fu"><a href="../reference/spatialFeatures.html">spatialFeatures</a></span><span class="op">(</span><span class="va">me</span><span class="op">)</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 712 14 </span></span>
+<span><span class="co">#&gt; dim: 178 14 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
-<span><span class="co">#&gt; assays(1): spatialFeatures</span></span>
-<span><span class="co">#&gt; rownames(712): sub_sector_2010300C02Rik sub_sector_Acsbg1 ...</span></span>
-<span><span class="co">#&gt;   super_concentric_Zfp536 super_concentric_Zfpm2</span></span>
-<span><span class="co">#&gt; rowData names(2): FeatureCategory FeatureGene</span></span>
+<span><span class="co">#&gt; assays(4): subsector subconcentric supersector superconcentric</span></span>
+<span><span class="co">#&gt; rownames(178): 2010300C02Rik Acsbg1 ... Zfp536 Zfpm2</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
 <span><span class="co">#&gt; colnames(14): sample1.67500 sample1.67512 ... sample2.65070</span></span>
 <span><span class="co">#&gt;   sample2.65071</span></span>
 <span><span class="co">#&gt; colData names(5): Cell Sample_id x_central y_central boundaries</span></span></code></pre></div>
@@ -162,33 +161,33 @@ Super-Concentric</p>
 <span><span class="co">#&gt; ---- location range: [4900.01,4919.98] x [6400.16,6419.97]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; boundaries slot (5): cell sub_sector sub_concentric super_sector</span></span>
-<span><span class="co">#&gt;   super_concentric</span></span>
+<span><span class="co">#&gt; boundaries slot (5): cell subsector subconcentric supersector</span></span>
+<span><span class="co">#&gt;   superconcentric</span></span>
 <span><span class="co">#&gt; - cell:</span></span>
 <span><span class="co">#&gt; samples (2): sample1 sample2</span></span>
 <span><span class="co">#&gt; -- sample1:</span></span>
 <span><span class="co">#&gt; ---- segments (5): 67500 67512 67515 67521 67527</span></span>
 <span><span class="co">#&gt; -- sample2:</span></span>
 <span><span class="co">#&gt; ---- segments (9): 65043 65044 ... 65070 65071</span></span>
-<span><span class="co">#&gt; - sub_sector:</span></span>
+<span><span class="co">#&gt; - subsector:</span></span>
 <span><span class="co">#&gt; samples (2): sample1 sample2</span></span>
 <span><span class="co">#&gt; -- sample1:</span></span>
 <span><span class="co">#&gt; ---- segments (60): 67500_01 67500_02 ... 67527_11 67527_12</span></span>
 <span><span class="co">#&gt; -- sample2:</span></span>
 <span><span class="co">#&gt; ---- segments (108): 65043_01 65043_02 ... 65071_11 65071_12</span></span>
-<span><span class="co">#&gt; - sub_concentric:</span></span>
+<span><span class="co">#&gt; - subconcentric:</span></span>
 <span><span class="co">#&gt; samples (2): sample1 sample2</span></span>
 <span><span class="co">#&gt; -- sample1:</span></span>
 <span><span class="co">#&gt; ---- segments (30): 67500_01 67500_02 ... 67527_05 67527_06</span></span>
 <span><span class="co">#&gt; -- sample2:</span></span>
 <span><span class="co">#&gt; ---- segments (54): 65043_01 65043_02 ... 65071_05 65071_06</span></span>
-<span><span class="co">#&gt; - super_sector:</span></span>
+<span><span class="co">#&gt; - supersector:</span></span>
 <span><span class="co">#&gt; samples (2): sample1 sample2</span></span>
 <span><span class="co">#&gt; -- sample1:</span></span>
 <span><span class="co">#&gt; ---- segments (55): 67500_01 67500_02 ... 67527_10 67527_11</span></span>
 <span><span class="co">#&gt; -- sample2:</span></span>
 <span><span class="co">#&gt; ---- segments (99): 65043_01 65043_02 ... 65071_10 65071_11</span></span>
-<span><span class="co">#&gt; - super_concentric:</span></span>
+<span><span class="co">#&gt; - superconcentric:</span></span>
 <span><span class="co">#&gt; samples (2): sample1 sample2</span></span>
 <span><span class="co">#&gt; -- sample1:</span></span>
 <span><span class="co">#&gt; ---- segments (35): 67500_01 67500_02 ... 67527_06 67527_07</span></span>
@@ -205,7 +204,7 @@ SpatialFeature boundaries.</p>
 <span>  <span class="co"># add molecule points and colour by feature name</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_point_me</a></span><span class="op">(</span><span class="va">me</span>, byColour <span class="op">=</span> <span class="st">"feature_id"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add nuclei segments and colour the border with red</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"sub_sector"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"subsector"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add cell segments and colour by cell id</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, byFill <span class="op">=</span> <span class="st">"segment_id"</span>, colour <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># zoom in to selected patch area</span></span>
@@ -217,7 +216,7 @@ SpatialFeature boundaries.</p>
 <span>  <span class="co"># add molecule points and colour by feature name</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_point_me</a></span><span class="op">(</span><span class="va">me</span>, byColour <span class="op">=</span> <span class="st">"feature_id"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add nuclei segments and colour the border with red</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"sub_concentric"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"subconcentric"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add cell segments and colour by cell id</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, byFill <span class="op">=</span> <span class="st">"segment_id"</span>, colour <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># zoom in to selected patch area</span></span>
@@ -229,7 +228,7 @@ SpatialFeature boundaries.</p>
 <span>  <span class="co"># add molecule points and colour by feature name</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_point_me</a></span><span class="op">(</span><span class="va">me</span>, byColour <span class="op">=</span> <span class="st">"feature_id"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add nuclei segments and colour the border with red</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"super_sector"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"supersector"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add cell segments and colour by cell id</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, byFill <span class="op">=</span> <span class="st">"segment_id"</span>, colour <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># zoom in to selected patch area</span></span>
@@ -241,7 +240,7 @@ SpatialFeature boundaries.</p>
 <span>  <span class="co"># add molecule points and colour by feature name</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_point_me</a></span><span class="op">(</span><span class="va">me</span>, byColour <span class="op">=</span> <span class="st">"feature_id"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add nuclei segments and colour the border with red</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"super_concentric"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, assayName <span class="op">=</span> <span class="st">"superconcentric"</span>, fill <span class="op">=</span> <span class="cn">NA</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># add cell segments and colour by cell id</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/MoleculeExperiment/man/plotting-functions.html" class="external-link">geom_polygon_me</a></span><span class="op">(</span><span class="va">me</span>, byFill <span class="op">=</span> <span class="st">"segment_id"</span>, colour <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># zoom in to selected patch area</span></span>
@@ -255,9 +254,9 @@ SpatialFeature boundaries.</p>
 counts matrix from a <code>MoleculeExperiment</code> object based on the
 given assay type.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ent</span> <span class="op">=</span> <span class="fu">SpatialFeatures</span><span class="fu">::</span><span class="fu"><a href="../reference/EntropyMatrix.html">EntropyMatrix</a></span><span class="op">(</span><span class="va">me</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sub_sector"</span>, <span class="st">"sub_concentric"</span>, <span class="st">"super_sector"</span>, <span class="st">"super_concentric"</span><span class="op">)</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ent</span> <span class="op">=</span> <span class="fu">SpatialFeatures</span><span class="fu">::</span><span class="fu"><a href="../reference/EntropyMatrix.html">EntropyMatrix</a></span><span class="op">(</span><span class="va">me</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subsector"</span>, <span class="st">"subconcentric"</span>, <span class="st">"supersector"</span>, <span class="st">"superconcentric"</span><span class="op">)</span>, nCores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ent</span>, <span class="va">head</span>, n <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $sub_sector</span></span>
+<span><span class="co">#&gt; $subsector</span></span>
 <span><span class="co">#&gt;               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span></span>
 <span><span class="co">#&gt; 2010300C02Rik     0.5623351     0.6931472     0.6365142     0.6931472</span></span>
 <span><span class="co">#&gt; Acsbg1            0.6931472     0.6931472     0.6931472     0.0000000</span></span>
@@ -279,7 +278,7 @@ given assay type.</p>
 <span><span class="co">#&gt; Adamts2                   0     0.0000000</span></span>
 <span><span class="co">#&gt; Adamtsl1                  0     0.0000000</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $sub_concentric</span></span>
+<span><span class="co">#&gt; $subconcentric</span></span>
 <span><span class="co">#&gt;               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span></span>
 <span><span class="co">#&gt; 2010300C02Rik     0.5623351     0.6931472     0.6365142             0</span></span>
 <span><span class="co">#&gt; Acsbg1            0.6931472     0.0000000     0.6931472             0</span></span>
@@ -301,7 +300,7 @@ given assay type.</p>
 <span><span class="co">#&gt; Adamts2                   0             0</span></span>
 <span><span class="co">#&gt; Adamtsl1                  0             0</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $super_sector</span></span>
+<span><span class="co">#&gt; $supersector</span></span>
 <span><span class="co">#&gt;               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span></span>
 <span><span class="co">#&gt; 2010300C02Rik             0      1.332179     0.6931472     0.6931472</span></span>
 <span><span class="co">#&gt; Acsbg1                    0      0.000000     0.6931472     0.6931472</span></span>
@@ -323,7 +322,7 @@ given assay type.</p>
 <span><span class="co">#&gt; Adamts2           0.0000000     0.0000000</span></span>
 <span><span class="co">#&gt; Adamtsl1          0.0000000     0.0000000</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $super_concentric</span></span>
+<span><span class="co">#&gt; $superconcentric</span></span>
 <span><span class="co">#&gt;               sample1.67500 sample1.67512 sample1.67515 sample1.67521</span></span>
 <span><span class="co">#&gt; 2010300C02Rik     1.5607104       1.05492     0.6931472     0.0000000</span></span>
 <span><span class="co">#&gt; Acsbg1            0.6931472       0.00000     0.6931472     0.6931472</span></span>
@@ -354,12 +353,11 @@ entropy matrix into a <code>SummarizedExperiment</code> object.</p>
 <code class="sourceCode R"><span><span class="va">se</span> <span class="op">=</span> <span class="fu">SpatialFeatures</span><span class="fu">::</span><span class="fu"><a href="../reference/EntropySummarizedExperiment.html">EntropySummarizedExperiment</a></span><span class="op">(</span><span class="va">ent</span>, <span class="va">me</span><span class="op">)</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 712 14 </span></span>
+<span><span class="co">#&gt; dim: 178 14 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
-<span><span class="co">#&gt; assays(1): spatialFeatures</span></span>
-<span><span class="co">#&gt; rownames(712): sub_sector_2010300C02Rik sub_sector_Acsbg1 ...</span></span>
-<span><span class="co">#&gt;   super_concentric_Zfp536 super_concentric_Zfpm2</span></span>
-<span><span class="co">#&gt; rowData names(2): FeatureCategory FeatureGene</span></span>
+<span><span class="co">#&gt; assays(4): subsector subconcentric supersector superconcentric</span></span>
+<span><span class="co">#&gt; rownames(178): 2010300C02Rik Acsbg1 ... Zfp536 Zfpm2</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
 <span><span class="co">#&gt; colnames(14): sample1.67500 sample1.67512 ... sample2.65070</span></span>
 <span><span class="co">#&gt;   sample2.65071</span></span>
 <span><span class="co">#&gt; colData names(5): Cell Sample_id x_central y_central boundaries</span></span></code></pre></div>
@@ -368,12 +366,12 @@ entropy matrix into a <code>SummarizedExperiment</code> object.</p>
 <code class="sourceCode R"><span><span class="va">se</span> <span class="op">=</span> <span class="fu"><a href="../reference/EntropySummarizedExperiment.html">EntropySummarizedExperiment</a></span><span class="op">(</span><span class="va">ent</span>, <span class="va">me</span>, includeCounts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 890 14 </span></span>
+<span><span class="co">#&gt; dim: 178 14 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
-<span><span class="co">#&gt; assays(1): spatialFeatures</span></span>
-<span><span class="co">#&gt; rownames(890): sub_sector_2010300C02Rik sub_sector_Acsbg1 ...</span></span>
-<span><span class="co">#&gt;   genecount_Zfp536 genecount_Zfpm2</span></span>
-<span><span class="co">#&gt; rowData names(2): FeatureCategory FeatureGene</span></span>
+<span><span class="co">#&gt; assays(5): subsector subconcentric supersector superconcentric</span></span>
+<span><span class="co">#&gt;   genecount</span></span>
+<span><span class="co">#&gt; rownames(178): 2010300C02Rik Acsbg1 ... Zfp536 Zfpm2</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
 <span><span class="co">#&gt; colnames(14): sample1.67500 sample1.67512 ... sample2.65070</span></span>
 <span><span class="co">#&gt;   sample2.65071</span></span>
 <span><span class="co">#&gt; colData names(5): Cell Sample_id x_central y_central boundaries</span></span></code></pre></div>
@@ -386,12 +384,12 @@ object:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">se</span></span>
 <span><span class="co">#&gt; class: SummarizedExperiment </span></span>
-<span><span class="co">#&gt; dim: 890 14 </span></span>
+<span><span class="co">#&gt; dim: 178 14 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
-<span><span class="co">#&gt; assays(1): spatialFeatures</span></span>
-<span><span class="co">#&gt; rownames(890): sub_sector_2010300C02Rik sub_sector_Acsbg1 ...</span></span>
-<span><span class="co">#&gt;   genecount_Zfp536 genecount_Zfpm2</span></span>
-<span><span class="co">#&gt; rowData names(2): FeatureCategory FeatureGene</span></span>
+<span><span class="co">#&gt; assays(5): subsector subconcentric supersector superconcentric</span></span>
+<span><span class="co">#&gt;   genecount</span></span>
+<span><span class="co">#&gt; rownames(178): 2010300C02Rik Acsbg1 ... Zfp536 Zfpm2</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
 <span><span class="co">#&gt; colnames(14): sample1.67500 sample1.67512 ... sample2.65070</span></span>
 <span><span class="co">#&gt;   sample2.65071</span></span>
 <span><span class="co">#&gt; colData names(5): Cell Sample_id x_central y_central boundaries</span></span>
@@ -424,20 +422,7 @@ object:</p>
 <span><span class="co">#&gt; sample2.65070 4919.59:6408.36,4915.98:6411.34,4915.76:6411.98</span></span>
 <span><span class="co">#&gt; sample2.65071 4922.35:6404.54,4919.80:6407.94,4920.23:6413.46</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span></span>
-<span><span class="co">#&gt; DataFrame with 890 rows and 2 columns</span></span>
-<span><span class="co">#&gt;                          FeatureCategory   FeatureGene</span></span>
-<span><span class="co">#&gt;                              &lt;character&gt;   &lt;character&gt;</span></span>
-<span><span class="co">#&gt; sub_sector_2010300C02Rik     Subcellular 2010300C02Rik</span></span>
-<span><span class="co">#&gt; sub_sector_Acsbg1            Subcellular        Acsbg1</span></span>
-<span><span class="co">#&gt; sub_sector_Adamts2           Subcellular       Adamts2</span></span>
-<span><span class="co">#&gt; sub_sector_Adamtsl1          Subcellular      Adamtsl1</span></span>
-<span><span class="co">#&gt; sub_sector_Adgrl4            Subcellular        Adgrl4</span></span>
-<span><span class="co">#&gt; ...                                  ...           ...</span></span>
-<span><span class="co">#&gt; genecount_Vip                  Genecount           Vip</span></span>
-<span><span class="co">#&gt; genecount_Vwc2l                Genecount         Vwc2l</span></span>
-<span><span class="co">#&gt; genecount_Wfs1                 Genecount          Wfs1</span></span>
-<span><span class="co">#&gt; genecount_Zfp536               Genecount        Zfp536</span></span>
-<span><span class="co">#&gt; genecount_Zfpm2                Genecount         Zfpm2</span></span></code></pre></div>
+<span><span class="co">#&gt; DataFrame with 178 rows and 0 columns</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -490,7 +475,7 @@ object:</p>
 <span><span class="co">#&gt; [21] S4Arrays_1.4.1              htmlwidgets_1.6.4          </span></span>
 <span><span class="co">#&gt; [23] bit_4.0.5                   DelayedArray_0.30.1        </span></span>
 <span><span class="co">#&gt; [25] abind_1.4-5                 BiocParallel_1.38.0        </span></span>
-<span><span class="co">#&gt; [27] withr_3.0.0                 desc_1.4.3                 </span></span>
+<span><span class="co">#&gt; [27] withr_3.0.1                 desc_1.4.3                 </span></span>
 <span><span class="co">#&gt; [29] grid_4.4.1                  fansi_1.0.6                </span></span>
 <span><span class="co">#&gt; [31] colorspace_2.1-1            scales_1.3.0               </span></span>
 <span><span class="co">#&gt; [33] cli_3.6.3                   rmarkdown_2.27             </span></span>
