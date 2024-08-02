@@ -10,7 +10,7 @@ EntropyMatrix(me, featureTypes, nCores = 1, ...)
 \item{me}{A Molecule Experiment object.}
 
 \item{featureTypes}{A character string specifying the feature type. Supported values include
-"sub_sector", "sub_concentric", "super_sector", and "super_concentric".}
+"subsector", "subconcentric", "supersector", and "superconcentric".}
 
 \item{nCores}{Number of cores}
 
@@ -25,6 +25,6 @@ This function computes the entropy of a counts matrix from a Molecule Experiment
 \examples{
 data(example_me)
 me <- loadBoundaries(me)
-ent <- EntropyMatrix(me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
+ent <- EntropyMatrix(me, c("subsector", "subconcentric", "supersector", "superconcentric"), nCores = 1)
 lapply(ent, head, n = 4)
 }

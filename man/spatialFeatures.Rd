@@ -6,23 +6,28 @@
 \usage{
 spatialFeatures(
   me,
-  featureTypes = c("sub_sector", "sub_concentric", "super_sector", "super_concentric"),
+  featureTypes = c("subsector", "subconcentric", "supersector", "superconcentric"),
   k = 5,
   nCores = 1,
   includeCounts = FALSE,
+  concatenateFeatures = FALSE,
   ...
 )
 }
 \arguments{
 \item{me}{A MoleculeExperiment (ME) object}
 
-\item{featureTypes}{a character vector listing the types of featureTypes to include}
+\item{featureTypes}{A character string specifying the feature type. Supported values include
+"subsector", "subconcentric", "supersector", and "superconcentric".}
 
 \item{k}{A numeric value indicating the number of polygons to calculate entropy (default 5)}
 
 \item{nCores}{number of cores for parallel processing (default 1)}
 
 \item{includeCounts}{logical (default FALSE) whether to include gene counts as features}
+
+\item{concatenateFeatures}{logical whether to concatenate all the features
+into a single assay (default FALSE). If FALSE the output SE object has multiple assays}
 
 \item{...}{arguments passed to loadBoundaries and EntropyMatrix}
 }

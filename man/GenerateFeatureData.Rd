@@ -6,7 +6,7 @@
 \usage{
 GenerateFeatureData(
   me,
-  featureTypes = c("sub_sector", "sub_concentric", "super_sector", "super_concentric"),
+  featureTypes = c("subsector", "subconcentric", "supersector", "superconcentric"),
   k = 5
 )
 }
@@ -22,11 +22,10 @@ Defaults to 5.}
 \value{
 A list containing dataframes for each assay type:
 \itemize{
-\item \code{sub_sector}: Feature data for sub-sector polygons.
-\item \code{sub_concentric}: Feature data for sub-concentric polygons.
-\item \code{sub_combo}: Feature data for sub-combo polygons.
-\item \code{super_concentric}: Feature data for super-concentric polygons.
-\item \code{super_combo}: Feature data for super-combo polygons.
+\item \code{subsector}: Feature data for sub-sector polygons.
+\item \code{subconcentric}: Feature data for sub-concentric polygons.
+\item \code{supersector}: Feature data for super-sector polygons.
+\item \code{superconcentric}: Feature data for super-concentric polygons.
 }
 }
 \description{

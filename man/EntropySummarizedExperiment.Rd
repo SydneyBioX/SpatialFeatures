@@ -4,7 +4,13 @@
 \alias{EntropySummarizedExperiment}
 \title{Create a SummarizedExperiment Object from a List of Data Frames}
 \usage{
-EntropySummarizedExperiment(df_list, me, includeCounts = FALSE, nCores = 1)
+EntropySummarizedExperiment(
+  df_list,
+  me,
+  includeCounts = FALSE,
+  concatenateFeatures = FALSE,
+  nCores = 1
+)
 }
 \arguments{
 \item{df_list}{A list of data frames, each containing assay data.}
@@ -12,6 +18,9 @@ EntropySummarizedExperiment(df_list, me, includeCounts = FALSE, nCores = 1)
 \item{me}{A Molecule Experiment object.}
 
 \item{includeCounts}{logical (default FALSE) whether to include gene counts as features}
+
+\item{concatenateFeatures}{logical whether to concatenate all the features
+into a single assay (default FALSE). If FALSE the output SE object has multiple assays}
 
 \item{nCores}{Number of cores (default 1)}
 }
@@ -25,7 +34,7 @@ constructs a SummarizedExperiment object with the specified data structure.
 \examples{
 data(example_me)
 me <- loadBoundaries(me)
-ent <- EntropyMatrix(me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
+ent <- EntropyMatrix(me, c("subsector", "subconcentric", "supersector", "superconcentric"), nCores = 1)
 se <- EntropySummarizedExperiment(ent, me)
 se
 }

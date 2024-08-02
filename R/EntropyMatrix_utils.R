@@ -38,11 +38,11 @@ annuli_counts = function(mat) {
 CountsMatrix <- function(me, assayName, nCores = 1, ...) {
   counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, nCores = nCores, ...)
 
-  if (assayName %in% c("sub_sector", "super_sector")) {
+  if (assayName %in% c("subsector", "supersector")) {
     return(counts_matrix)
   }
 
-  if (assayName %in% c("sub_concentric", "super_concentric")) {
+  if (assayName %in% c("subconcentric", "superconcentric")) {
     return(annuli_counts(counts_matrix))
   }
 

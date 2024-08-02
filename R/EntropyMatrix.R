@@ -5,7 +5,7 @@
 #'
 #' @param me A Molecule Experiment object.
 #' @param featureTypes A character string specifying the feature type. Supported values include
-#' "sub_sector", "sub_concentric", "super_sector", and "super_concentric".
+#' "subsector", "subconcentric", "supersector", and "superconcentric".
 #' @param nCores Number of cores
 #' @param ... arguments passing to CountsMatrix
 #'
@@ -14,11 +14,11 @@
 #' @examples
 #' data(example_me)
 #' me <- loadBoundaries(me)
-#' ent <- EntropyMatrix(me, c("sub_sector", "sub_concentric", "super_sector", "super_concentric"), nCores = 1)
+#' ent <- EntropyMatrix(me, c("subsector", "subconcentric", "supersector", "superconcentric"), nCores = 1)
 #' lapply(ent, head, n = 4)
 EntropyMatrix <- function(me, featureTypes, nCores = 1, ...) {
   # Ensure featureTypes are valid
-  # if (!all(featureTypes %in% c("sub_sector", "sub_concentric", 'sub_combo', "super_sector", "super_concentric", "super_combo"))) {
+  # if (!all(featureTypes %in% c("subsector", "subconcentric", 'subcombo', "supersector", "superconcentric", "supercombo"))) {
   #   stop("Invalid assayName(s) provided!")
   # }
 

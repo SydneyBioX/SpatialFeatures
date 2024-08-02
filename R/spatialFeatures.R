@@ -15,10 +15,13 @@
 #' the entropy values into a SummarizedExperiment object.
 #'
 #' @param me A MoleculeExperiment (ME) object
-#' @param featureTypes a character vector listing the types of featureTypes to include
+#' @param featureTypes A character string specifying the feature type. Supported values include
+#' "subsector", "subconcentric", "supersector", and "superconcentric".
 #' @param k A numeric value indicating the number of polygons to calculate entropy (default 5)
 #' @param nCores number of cores for parallel processing (default 1)
 #' @param includeCounts logical (default FALSE) whether to include gene counts as features
+#' @param concatenateFeatures logical whether to concatenate all the features
+#' into a single assay (default FALSE). If FALSE the output SE object has multiple assays
 #' @param ... arguments passed to loadBoundaries and EntropyMatrix
 #' @return A SummarizedExperiment object containing a spatialFeatures assay and cell-level colData
 #' @export
@@ -27,11 +30,12 @@
 #' se <- spatialFeatures(me)
 #' se
 spatialFeatures <- function(me,
-                            featureTypes = c("sub_sector", "sub_concentric",
-                                             "super_sector", "super_concentric"),
+                            featureTypes = c("subsector", "subconcentric",
+                                             "supersector", "superconcentric"),
                             k = 5,
                             nCores = 1,
                             includeCounts = FALSE,
+                            concatenateFeatures = FALSE,
                             ...) {
 
   # step 1 load new boundaries
@@ -41,7 +45,7 @@ spatialFeatures <- function(me,
   ent = EntropyMatrix(me, nCores = nCores, featureTypes = featureTypes, ...)
 
   # step 3 create SummarizedExperiment
-  se = EntropySummarizedExperiment(ent, me, includeCounts = includeCounts, nCores = nCores)
+  se = EntropySummarizedExperiment(ent, me, includeCounts = includeCounts, concatenateFeatures = concatenateFeatures, nCores = nCores)
 
   return(se)
 }

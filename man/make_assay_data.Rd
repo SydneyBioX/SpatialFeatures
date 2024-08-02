@@ -4,13 +4,16 @@
 \alias{make_assay_data}
 \title{make assay data}
 \usage{
-make_assay_data(df_list)
+make_assay_data(df_list, concatenateFeatures = FALSE)
 }
 \arguments{
 \item{df_list}{A list of data frames}
+
+\item{concatenateFeatures}{logical whether to concatenate features (default FALSE)}
 }
 \value{
-A single data frame
+if concatenateFeatures == TRUE, A single data frame, otherwise a list
+containing data frames
 }
 \description{
 make assay data

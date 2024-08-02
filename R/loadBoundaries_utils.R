@@ -21,24 +21,23 @@
 #' @param k A numeric value indicating the scaling factor for concentric polygons.
 #'        Defaults to 5.
 #' @return A list containing dataframes for each assay type:
-#' - `sub_sector`: Feature data for sub-sector polygons.
-#' - `sub_concentric`: Feature data for sub-concentric polygons.
-#' - `sub_combo`: Feature data for sub-combo polygons.
-#' - `super_concentric`: Feature data for super-concentric polygons.
-#' - `super_combo`: Feature data for super-combo polygons.
+#' - `subsector`: Feature data for sub-sector polygons.
+#' - `subconcentric`: Feature data for sub-concentric polygons.
+#' - `supersector`: Feature data for super-sector polygons.
+#' - `superconcentric`: Feature data for super-concentric polygons.
 #' @importFrom dplyr group_by mutate arrange select ungroup rowwise distinct %>% bind_rows
 #' @importFrom purrr map_dfr
 #' @importFrom parallel mclapply
-GenerateFeatureData <- function(me, featureTypes = c("sub_sector", "sub_concentric",
-                                                     "super_sector", "super_concentric"), k = 5) {
+GenerateFeatureData <- function(me, featureTypes = c("subsector", "subconcentric",
+                                                     "supersector", "superconcentric"), k = 5) {
   results <- extract_boundaries_and_centroids(me)
   df_circle = results$df_circle
 
   featureTypes <- match.arg(featureTypes, several.ok = TRUE)
 
-  if ("sub_sector" %in% featureTypes) {
-    # For sub-sector
-    sub_sector <- df_circle %>%
+  if ("subsector" %in% featureTypes) {
+    # For subsector
+    subsector <- df_circle %>%
       distinct(segment_id, x_location, y_location, .keep_all = TRUE) %>%
       mutate(angle = atan2(y_location - y_central, x_location - x_central) + pi) %>%
       split(.$segment_id) %>%
@@ -46,47 +45,46 @@ GenerateFeatureData <- function(me, featureTypes = c("sub_sector", "sub_concentr
       bind_rows() %>%
       dplyr::rename(x_section = x_location_sector, y_section = y_location_sector, area_id = sector_id)
   } else {
-    sub_sector <- NULL
+    subsector <- NULL
   }
 
-  if ("super_sector" %in% featureTypes) {
-    # For super-sector
-    super_sector <- create_sector_df(df_circle)
+  if ("supersector" %in% featureTypes) {
+    # For supersector
+    supersector <- create_sector_df(df_circle)
   } else {
-    super_sector <- NULL
+    supersector <- NULL
   }
 
-  if ("sub_concentric" %in% featureTypes) {
-    # Common for sub-concentric
+  if ("subconcentric" %in% featureTypes) {
+    # Common for subconcentric
     common_scale_factors <- generate_scale_factors_all(k)
     common_scaled_df <- common_scale_factors %>%
       map_dfr(~create_scaled_df_sub(.x, df_circle, k))
-    # For sub-concentric
-    sub_concentric <- common_scaled_df %>%
+    # For subconcentric
+    subconcentric <- common_scaled_df %>%
       select(x_section = x_scaled, y_section = y_scaled, segment_id, sample_id, area_id = concentric_id)
     # modify the area_id column
-    sub_concentric <- sub_concentric %>% mutate(area_id = sapply(area_id, modify_area_id))
+    subconcentric <- subconcentric %>% mutate(area_id = sapply(area_id, modify_area_id))
   } else {
-    sub_concentric <- NULL
+    subconcentric <- NULL
   }
 
-  if ("super_concentric" %in% featureTypes) {
-    # For super-concentric
+  if ("superconcentric" %in% featureTypes) {
+    # For superconcentric
     super_scale_factors <- generate_scale_factors_all_outside(k)
     super_scaled_df <- super_scale_factors %>%
       map_dfr(~create_scaled_df_super(.x, df_circle, k))
-    super_concentric <- super_scaled_df %>%
+    superconcentric <- super_scaled_df %>%
       select(x_section = x_scaled, y_section = y_scaled, segment_id, sample_id, area_id = concentric_id)
     # Modify the area_id column for each table
-    super_concentric <- super_concentric %>% mutate(area_id = sapply(area_id, modify_area_id))
+    superconcentric <- superconcentric %>% mutate(area_id = sapply(area_id, modify_area_id))
   } else {
-    super_concentric <- NULL
+    superconcentric <- NULL
   }
 
   featureData = sapply(featureTypes, get, simplify = FALSE, envir = environment())
 
   return(featureData)
-  # return(list(sub_sector = sub_sector, sub_concentric = sub_concentric, super_sector = super_sector, super_concentric = super_concentric))
 }
 
 #' Create sectors from a given data frame
