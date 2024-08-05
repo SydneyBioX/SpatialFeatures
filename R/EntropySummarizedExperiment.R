@@ -30,16 +30,18 @@ EntropySummarizedExperiment <- function(df_list, me, includeCounts = FALSE, conc
 
   if (includeCounts) {
     # Generating the genecount
-    genecount <- as.data.frame(as.matrix(MoleculeExperiment::countMolecules(me,
-                                                                            moleculesAssay = "detected",
-                                                                            boundariesAssay = "cell",
-                                                                            matrixOnly = TRUE,
-                                                                            nCores = nCores)))
-
-    # Adding a prefix to the row names of genecount to differentiate it
-    rownames(genecount) <- paste("genecount", rownames(genecount), sep="_")
+    genecount = MoleculeExperiment::countMolecules(me,
+                                                   moleculesAssay = "detected",
+                                                   boundariesAssay = "cell",
+                                                   matrixOnly = TRUE,
+                                                   nCores = nCores)
 
     if (concatenateFeatures) {
+
+      # Adding a prefix to the row names of genecount to differentiate it
+      rownames(genecount) <- paste("genecount", rownames(genecount), sep="_")
+
+      genecount <- as.matrix(genecount)
 
       # Rbinding the assay_data and genecount together
       assay_data <- rbind(assay_data, genecount)

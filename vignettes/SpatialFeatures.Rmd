@@ -50,10 +50,24 @@ me
 
 ## Quick start
 
-The `spatialFeatures` function performs three key steps
+The `spatialFeatures` function performs three key steps. First, it generates new
+boundaries corresponding to the feature types. Second, it calculates entropy-based
+metrics for each of the feature types. Third, it combines all this information 
+and returns a SummarizedExperiment object.
+
+SpatialFeatures can be run with the following basic command. This will extract
+out all feature types as a single assay.
 
 ```{r}
 se = spatialFeatures(me)
+se
+```
+You can also calculate gene counts within the spatialFeatures function, either
+as additional concatenated features, or with each feature type belonging to its
+own assay.
+
+```{r}
+se = spatialFeatures(me, includeCounts = TRUE, concatenateFeatures = FALSE)
 se
 ```
 
