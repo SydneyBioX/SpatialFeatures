@@ -121,7 +121,9 @@ matrix_entropy <- function(mat, nCores = 1) {
     compute_cell_entropy(cell_segments_mat)
   }, mc.cores = nCores)
 
-  df_entropy <- as.data.frame(do.call(cbind, results))
+  # commented out by shila
+  # df_entropy <- as.data.frame(do.call(cbind, results))
+  df_entropy <- do.call(cbind, results)
   rownames(df_entropy) <- rownames(mat)
   colnames(df_entropy) <- cells
 
