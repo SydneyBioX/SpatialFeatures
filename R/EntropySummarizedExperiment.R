@@ -93,8 +93,11 @@ EntropySummarizedExperiment <- function(df_list, me, includeCounts = FALSE, conc
   } else {
 
     rnames = gsub(".*_", "", rownames(assay_data[[1]]))
+    cnames = gsub(".*_", "", colnames(assay_data[[1]]))
+
     assay_data <- lapply(assay_data, function(x){
       rownames(x) <- rnames
+      colnames(x) <- cnames
       return(x)
     })
 
