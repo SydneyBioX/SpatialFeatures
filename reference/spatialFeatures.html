@@ -10,7 +10,7 @@ Super-concentric polygons
 The function has 3 key steps, 1. adds new boundaries to the ME object
 according to the subcellular and supercellular segmentations, 2. calculates
 entropy for each of the cell and featureType combinations, and 3. combines
-the entropy values into a SummarizedExperiment object."><meta property="og:description" content="This function takes a MoleculeExperiment (ME) object as input and calculates
+the entropy values into a SingleCellExperiment object."><meta property="og:description" content="This function takes a MoleculeExperiment (ME) object as input and calculates
 new molecule-based spatial features according to the following segmentations:
 Sub-sector polygons
 Sub-concentric polygons
@@ -21,7 +21,7 @@ Super-concentric polygons
 The function has 3 key steps, 1. adds new boundaries to the ME object
 according to the subcellular and supercellular segmentations, 2. calculates
 entropy for each of the cell and featureType combinations, and 3. combines
-the entropy values into a SummarizedExperiment object."></head><body>
+the entropy values into a SingleCellExperiment object."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -29,7 +29,7 @@ the entropy values into a SummarizedExperiment object."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">SpatialFeatures</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,8 +39,10 @@ the entropy values into a SummarizedExperiment object."></head><body>
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/SpatialFeatures.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/sydneybiox/SpatialFeatures/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -50,7 +52,7 @@ the entropy values into a SummarizedExperiment object."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate SpatialFeatures</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/sydneybiox/SpatialFeatures/blob/main/R/spatialFeatures.R" class="external-link"><code>R/spatialFeatures.R</code></a></small>
       <div class="d-none name"><code>spatialFeatures.Rd</code></div>
     </div>
 
@@ -63,7 +65,7 @@ new molecule-based spatial features according to the following segmentations:</p
 </ul><p>The function has 3 key steps, 1. adds new boundaries to the ME object
 according to the subcellular and supercellular segmentations, 2. calculates
 entropy for each of the cell and featureType combinations, and 3. combines
-the entropy values into a SummarizedExperiment object.</p>
+the entropy values into a SingleCellExperiment object.</p>
     </div>
 
     <div class="section level2">
@@ -88,12 +90,14 @@ the entropy values into a SummarizedExperiment object.</p>
 
 
 <dt id="arg-featuretypes">featureTypes<a class="anchor" aria-label="anchor" href="#arg-featuretypes"></a></dt>
-<dd><p>A character string specifying the feature type. Supported values include
-"subsector", "subconcentric", "supersector", and "superconcentric".</p></dd>
+<dd><p>A character string specifying the feature type.
+Supported values include "subsector", "subconcentric", "supersector", and
+"superconcentric".</p></dd>
 
 
 <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
-<dd><p>A numeric value indicating the number of polygons to calculate entropy (default 5)</p></dd>
+<dd><p>A numeric value indicating the number of polygons to calculate
+entropy (default 5)</p></dd>
 
 
 <dt id="arg-ncores">nCores<a class="anchor" aria-label="anchor" href="#arg-ncores"></a></dt>
@@ -101,12 +105,14 @@ the entropy values into a SummarizedExperiment object.</p>
 
 
 <dt id="arg-includecounts">includeCounts<a class="anchor" aria-label="anchor" href="#arg-includecounts"></a></dt>
-<dd><p>logical (default FALSE) whether to include gene counts as features</p></dd>
+<dd><p>logical (default FALSE) whether to include gene
+counts as features</p></dd>
 
 
 <dt id="arg-concatenatefeatures">concatenateFeatures<a class="anchor" aria-label="anchor" href="#arg-concatenatefeatures"></a></dt>
 <dd><p>logical whether to concatenate all the features
-into a single assay (default FALSE). If FALSE the output SE object has multiple assays</p></dd>
+into a single assay (default FALSE). If FALSE the output SE object has
+multiple assays</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -115,7 +121,8 @@ into a single assay (default FALSE). If FALSE the output SE object has multiple 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A SummarizedExperiment object containing a spatialFeatures assay and cell-level colData</p>
+    <p>A SingleCellExperiment object containing a spatialFeatures assay
+and cell-level colData</p>
     </div>
 
     <div class="section level2">
@@ -123,7 +130,7 @@ into a single assay (default FALSE). If FALSE the output SE object has multiple 
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example_me</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">se</span> <span class="op">&lt;-</span> <span class="fu">spatialFeatures</span><span class="op">(</span><span class="va">me</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">se</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: SummarizedExperiment </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class: SingleCellExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 178 14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> assays(4): subsector subconcentric supersector superconcentric</span>
@@ -132,6 +139,9 @@ into a single assay (default FALSE). If FALSE the output SE object has multiple 
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(14): sample1.67500 sample1.67512 ... sample2.65070</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sample2.65071</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(5): Cell Sample_id x_central y_central boundaries</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> reducedDimNames(0):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mainExpName: NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> altExpNames(0):</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -143,7 +153,7 @@ into a single assay (default FALSE). If FALSE the output SE object has multiple 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>

@@ -4,9 +4,10 @@
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/articles/index.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/authors.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/index.html</loc></url>
+<url><loc>https://sydneybiox.github.io/SpatialFeatures/news/index.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/CountsMatrix.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/EntropyMatrix.html</loc></url>
-<url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/EntropySummarizedExperiment.html</loc></url>
+<url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/EntropySingleCellExperiment.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/GenerateFeatureData.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/annuli_counts.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/calculate_centroids.html</loc></url>
