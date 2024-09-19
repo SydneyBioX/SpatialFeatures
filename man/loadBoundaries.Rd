@@ -12,12 +12,13 @@ loadBoundaries(me, ...)
 \item{...}{arguments passed to GenerateFeatureData}
 }
 \value{
-An enriched Molecule Experiment (ME) object that includes boundary information
-for the supported assays.
+An enriched Molecule Experiment (ME) object that includes boundary
+information for the supported assays.
 }
 \description{
-This function takes a Molecule Experiment (ME) object as input and enriches it
-with boundary data from a variety of assays. The currently supported assays are:
+This function takes a Molecule Experiment (ME) object as input and enriches
+it with boundary data from a variety of assays. The currently supported
+assays are:
 \itemize{
 \item Sub-sector polygons
 \item Sub-concentric polygons
@@ -25,8 +26,8 @@ with boundary data from a variety of assays. The currently supported assays are:
 \item Super-concentric polygons
 }
 
-The function internally processes each assay, extracts respective boundary information,
-and updates the original ME object with this new data.
+The function internally processes each assay, extracts respective boundary
+information, and updates the original ME object with this new data.
 }
 \examples{
 data(example_me)

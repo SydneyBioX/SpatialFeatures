@@ -12,18 +12,23 @@
 #' The function has 3 key steps, 1. adds new boundaries to the ME object
 #' according to the subcellular and supercellular segmentations, 2. calculates
 #' entropy for each of the cell and featureType combinations, and 3. combines
-#' the entropy values into a SummarizedExperiment object.
+#' the entropy values into a SingleCellExperiment object.
 #'
 #' @param me A MoleculeExperiment (ME) object
-#' @param featureTypes A character string specifying the feature type. Supported values include
-#' "subsector", "subconcentric", "supersector", and "superconcentric".
-#' @param k A numeric value indicating the number of polygons to calculate entropy (default 5)
+#' @param featureTypes A character string specifying the feature type.
+#' Supported values include "subsector", "subconcentric", "supersector", and
+#' "superconcentric".
+#' @param k A numeric value indicating the number of polygons to calculate
+#' entropy (default 5)
 #' @param nCores number of cores for parallel processing (default 1)
-#' @param includeCounts logical (default FALSE) whether to include gene counts as features
+#' @param includeCounts logical (default FALSE) whether to include gene
+#' counts as features
 #' @param concatenateFeatures logical whether to concatenate all the features
-#' into a single assay (default FALSE). If FALSE the output SE object has multiple assays
+#' into a single assay (default FALSE). If FALSE the output SE object has
+#' multiple assays
 #' @param ... arguments passed to loadBoundaries and EntropyMatrix
-#' @return A SummarizedExperiment object containing a spatialFeatures assay and cell-level colData
+#' @return A SingleCellExperiment object containing a spatialFeatures assay
+#' and cell-level colData
 #' @export
 #' @examples
 #' data(example_me)
@@ -42,10 +47,12 @@ spatialFeatures <- function(me,
   me <- loadBoundaries(me, k = k, ...)
 
   # step 2 calculate entropies
-  ent = EntropyMatrix(me, nCores = nCores, featureTypes = featureTypes, ...)
+  ent <- EntropyMatrix(me, nCores = nCores, featureTypes = featureTypes, ...)
 
-  # step 3 create SummarizedExperiment
-  se = EntropySummarizedExperiment(ent, me, includeCounts = includeCounts, concatenateFeatures = concatenateFeatures, nCores = nCores)
+  # step 3 create SingleCellExperiment
+  se <- EntropySingleCellExperiment(ent, me, includeCounts = includeCounts,
+                                    concatenateFeatures = concatenateFeatures,
+                                    nCores = nCores)
 
   return(se)
 }

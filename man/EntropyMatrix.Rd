@@ -9,7 +9,8 @@ EntropyMatrix(me, featureTypes, nCores = 1, ...)
 \arguments{
 \item{me}{A Molecule Experiment object.}
 
-\item{featureTypes}{A character string specifying the feature type. Supported values include
+\item{featureTypes}{A character string specifying the feature type.
+Supported values include
 "subsector", "subconcentric", "supersector", and "superconcentric".}
 
 \item{nCores}{Number of cores}
@@ -17,14 +18,17 @@ EntropyMatrix(me, featureTypes, nCores = 1, ...)
 \item{...}{arguments passing to CountsMatrix}
 }
 \value{
-A matrix representing the entropy values corresponding to the given assay type.
+A matrix representing the entropy values corresponding to
+the given assay type.
 }
 \description{
-This function computes the entropy of a counts matrix from a Molecule Experiment object based on the given assay type.
+This function computes the entropy of a counts matrix from a
+MoleculeExperiment object based on the given assay type.
 }
 \examples{
 data(example_me)
 me <- loadBoundaries(me)
-ent <- EntropyMatrix(me, c("subsector", "subconcentric", "supersector", "superconcentric"), nCores = 1)
+ent <- EntropyMatrix(me, c("subsector", "subconcentric",
+"supersector", "superconcentric"), nCores = 1)
 lapply(ent, head, n = 4)
 }

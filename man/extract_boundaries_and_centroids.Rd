@@ -10,7 +10,8 @@ extract_boundaries_and_centroids(me)
 \item{me}{The object to process.}
 }
 \value{
-A list containing a data frame of boundaries and a data frame of centroids.
+A list containing a data frame of boundaries and a data frame of
+centroids.
 }
 \description{
 Extract boundaries and calculate centroids

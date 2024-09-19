@@ -17,22 +17,27 @@ spatialFeatures(
 \arguments{
 \item{me}{A MoleculeExperiment (ME) object}
 
-\item{featureTypes}{A character string specifying the feature type. Supported values include
-"subsector", "subconcentric", "supersector", and "superconcentric".}
+\item{featureTypes}{A character string specifying the feature type.
+Supported values include "subsector", "subconcentric", "supersector", and
+"superconcentric".}
 
-\item{k}{A numeric value indicating the number of polygons to calculate entropy (default 5)}
+\item{k}{A numeric value indicating the number of polygons to calculate
+entropy (default 5)}
 
 \item{nCores}{number of cores for parallel processing (default 1)}
 
-\item{includeCounts}{logical (default FALSE) whether to include gene counts as features}
+\item{includeCounts}{logical (default FALSE) whether to include gene
+counts as features}
 
 \item{concatenateFeatures}{logical whether to concatenate all the features
-into a single assay (default FALSE). If FALSE the output SE object has multiple assays}
+into a single assay (default FALSE). If FALSE the output SE object has
+multiple assays}
 
 \item{...}{arguments passed to loadBoundaries and EntropyMatrix}
 }
 \value{
-A SummarizedExperiment object containing a spatialFeatures assay and cell-level colData
+A SingleCellExperiment object containing a spatialFeatures assay
+and cell-level colData
 }
 \description{
 This function takes a MoleculeExperiment (ME) object as input and calculates
@@ -47,7 +52,7 @@ new molecule-based spatial features according to the following segmentations:
 The function has 3 key steps, 1. adds new boundaries to the ME object
 according to the subcellular and supercellular segmentations, 2. calculates
 entropy for each of the cell and featureType combinations, and 3. combines
-the entropy values into a SummarizedExperiment object.
+the entropy values into a SingleCellExperiment object.
 }
 \examples{
 data(example_me)

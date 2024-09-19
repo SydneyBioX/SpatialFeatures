@@ -1,27 +1,36 @@
 Package: SpatialFeatures
 Title: Entropy-based subcellular and supercellular features for molecule-resolved spatial omics datasets
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: c(
-    person("Shila", "Ghazanfar", email = "shazanfar@gmail.com", role = c("aut", "cre", "ctb")),
+    person("Shila", "Ghazanfar", email = "shazanfar@gmail.com",
+    role = c("aut", "cre", "ctb"),comment = c(ORCID = "0000-0001-7861-6997")),
     person("Guan", "Gui", role = "ctb")
     )
-Description: This package uses molecule-level information to extract new cell-level features as an alternative to 
-  simply calculating gene counts. By using four categories, sub-sector, super-sector, super-sector and super-concentric
-  segmentations of cells, SpatialFeatures then uses entropy as a metric to arrive at a cell-by-gene level feature.
+Description: This package uses molecule-level information to extract new 
+  cell-level features as an alternative to simply calculating gene counts. By 
+  using four categories, sub-sector, super-sector, super-sector and 
+  super-concentric segmentations of cells, SpatialFeatures then uses entropy 
+  as a metric to arrive at a cell-by-gene level feature. Overall, this means 
+  that we can extract more nuanced information from molecule-resolved spatial
+  gene expression for further downstream analysis with SingleCellExperiment.
 License: GPL-2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: R (>= 4.4.0),
     MoleculeExperiment,
-    SummarizedExperiment,
+    SingleCellExperiment,
     dplyr,
     purrr,
     parallel
-Imports: terra, RANN, methods
+Imports:
+    terra,
+    rlang
 Suggests:
     knitr,
+    ggplot2,
     BiocStyle
 VignetteBuilder: knitr
-biocViews: Spatial
+biocViews: Spatial, GeneExpression
 URL: https://sydneybiox.github.io/SpatialFeatures/
+BugReports: https://github.com/sydneybiox/SpatialFeatures/issues

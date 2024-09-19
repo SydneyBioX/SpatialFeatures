@@ -14,9 +14,11 @@ GenerateFeatureData(
 \item{me}{The input data object. This object contains spatial information,
 typically regarding segments or regions of interest.}
 
-\item{featureTypes}{Character vector containing the feature types to calculate.}
+\item{featureTypes}{Character vector containing the feature types to
+calculate.}
 
-\item{k}{A numeric value indicating the scaling factor for concentric polygons.
+\item{k}{A numeric value indicating the scaling factor for concentric
+polygons.
 Defaults to 5.}
 }
 \value{
@@ -29,9 +31,9 @@ A list containing dataframes for each assay type:
 }
 }
 \description{
-This comprehensive function processes the given data (\code{me}) and returns feature
-data based on multiple assay types. The supported assays encapsulated within
-this function include:
+This comprehensive function processes the given data (\code{me}) and returns
+feature data based on multiple assay types. The supported assays
+encapsulated within this function include:
 \itemize{
 \item Sub-sector polygons
 \item Sub-concentric polygons

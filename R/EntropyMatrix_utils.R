@@ -5,14 +5,12 @@
 #' @importFrom terra t diff
 #' @return A matrix of annuli polygon counts.
 annuli_counts = function(mat) {
-  fac = sub("_[0-9]+$", "", colnames(mat))
-  # tmat = terra::t(mat)
-  tmat = terra::t(mat)
-  tmat_split = split.data.frame(tmat, fac)
-  # tmat_split_diffs = lapply(tmat_split, terra::diff)
-  tmat_split_diffs = lapply(tmat_split, terra::diff)
-  diffs = do.call(rbind, tmat_split_diffs)
-  cts_new = terra::t(diffs)
+  fac <- sub("_[0-9]+$", "", colnames(mat))
+  tmat <- terra::t(mat)
+  tmat_split <- split.data.frame(tmat, fac)
+  tmat_split_diffs <- lapply(tmat_split, terra::diff)
+  diffs <- do.call(rbind, tmat_split_diffs)
+  cts_new <- terra::t(diffs)
   cts_new[cts_new < 0] <- 0
   return(cts_new)
 }
@@ -20,23 +18,29 @@ annuli_counts = function(mat) {
 #' Extract Counts Matrix from Molecule Experiment based on Assay Type
 #'
 #' @description
-#' This function retrieves a counts matrix from a Molecule Experiment object based on the given assay type.
+#' This function retrieves a counts matrix from a Molecule Experiment object
+#' based on the given assay type.
 #'
 #' @param me A Molecule Experiment object.
-#' @param assayName A character string indicating the assay type. Supported values include
-#' "sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".
+#' @param assayName A character string indicating the assay type. Supported
+#' values include "sub-sector", "sub-concentric", "sub-combo",
+#' "super-concentric", and "super-combo".
 #' @param nCores Number of cores for parallel processing (default 1)
 #' @param ... arguments passing to MoleculeExperiment::countMolecules
 #'
 #' @return A counts matrix corresponding to the specified assay type.
 #' @importFrom MoleculeExperiment countMolecules
 #' @examples
-#' \dontrun{
 #' # Assuming `data_obj` is your Molecule Experiment object
-#' cm = CountsMatrix(data_obj, assayName = "sub-sector")
-#' }
+#' # cm = CountsMatrix(data_obj, assayName = "sub-sector")
 CountsMatrix <- function(me, assayName, nCores = 1, ...) {
-  counts_matrix = MoleculeExperiment::countMolecules(me, moleculesAssay = "detected", boundariesAssay = assayName, matrixOnly = TRUE, nCores = nCores, ...)
+  counts_matrix <- MoleculeExperiment::countMolecules(
+    me,
+    moleculesAssay = "detected",
+    boundariesAssay = assayName,
+    matrixOnly = TRUE,
+    nCores = nCores,
+    ...)
 
   if (assayName %in% c("subsector", "supersector")) {
     return(counts_matrix)

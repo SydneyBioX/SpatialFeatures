@@ -9,8 +9,9 @@ CountsMatrix(me, assayName, nCores = 1, ...)
 \arguments{
 \item{me}{A Molecule Experiment object.}
 
-\item{assayName}{A character string indicating the assay type. Supported values include
-"sub-sector", "sub-concentric", "sub-combo", "super-concentric", and "super-combo".}
+\item{assayName}{A character string indicating the assay type. Supported
+values include "sub-sector", "sub-concentric", "sub-combo",
+"super-concentric", and "super-combo".}
 
 \item{nCores}{Number of cores for parallel processing (default 1)}
 
@@ -20,11 +21,10 @@ CountsMatrix(me, assayName, nCores = 1, ...)
 A counts matrix corresponding to the specified assay type.
 }
 \description{
-This function retrieves a counts matrix from a Molecule Experiment object based on the given assay type.
+This function retrieves a counts matrix from a Molecule Experiment object
+based on the given assay type.
 }
 \examples{
-\dontrun{
 # Assuming `data_obj` is your Molecule Experiment object
-cm = CountsMatrix(data_obj, assayName = "sub-sector")
-}
+# cm = CountsMatrix(data_obj, assayName = "sub-sector")
 }
