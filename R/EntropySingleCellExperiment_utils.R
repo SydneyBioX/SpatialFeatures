@@ -5,7 +5,7 @@
 #' features (default FALSE)
 #' @return if concatenateFeatures == TRUE, A single data frame,
 #' otherwise a list containing data frames
-make_assay_data = function(df_list, concatenateFeatures = FALSE) {
+make_assay_data <- function(df_list, concatenateFeatures = FALSE) {
 
   assay_data_list <- lapply(names(df_list), function(assayName) {
     df <- df_list[[assayName]]

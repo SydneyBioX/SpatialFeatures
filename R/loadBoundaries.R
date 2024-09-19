@@ -26,12 +26,12 @@
 #' me
 loadBoundaries <- function(me,...) {
 
-  featureData = GenerateFeatureData(me, ...)
+  featureData <- GenerateFeatureData(me, ...)
 
   featureData <- lapply(featureData,
                         function(x) {x$segment_id <- x$area_id; return(x)})
 
-  bds_list = lapply(featureData, MoleculeExperiment::dataframeToMEList,
+  bds_list <- lapply(featureData, MoleculeExperiment::dataframeToMEList,
                     dfType = "boundaries", assayName = "cell",
                     sampleCol = "sample_id", factorCol = "area_id",
                     xCol = "x_section", yCol = "y_section",

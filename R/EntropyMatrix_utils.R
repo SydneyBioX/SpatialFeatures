@@ -4,7 +4,7 @@
 #'
 #' @importFrom terra t diff
 #' @return A matrix of annuli polygon counts.
-annuli_counts = function(mat) {
+annuli_counts <- function(mat) {
   fac <- sub("_[0-9]+$", "", colnames(mat))
   tmat <- terra::t(mat)
   tmat_split <- split.data.frame(tmat, fac)
@@ -90,7 +90,7 @@ calculate_entropy <- function(p) {
 #'
 #' @param counts a vector of integers
 #' @return the proportion
-countsprop = function(counts) {
+countsprop <- function(counts) {
   total <- sum(counts)
   if (total == 0) {
     return(rep(0, length(counts)))
