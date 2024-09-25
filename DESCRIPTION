@@ -1,6 +1,6 @@
 Package: SpatialFeatures
 Title: Entropy-based subcellular and supercellular features for molecule-resolved spatial omics datasets
-Version: 0.99.0
+Version: 0.99.1
 Authors@R: c(
     person("Shila", "Ghazanfar", email = "shazanfar@gmail.com",
     role = c("aut", "cre", "ctb"),comment = c(ORCID = "0000-0001-7861-6997")),
