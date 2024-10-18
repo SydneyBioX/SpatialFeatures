@@ -33,7 +33,7 @@
 #' @importFrom rlang .data
 #' @importFrom utils head
 GenerateFeatureData <- function(me,
-                                featureTypes = c("subsector", "subconcentric","supersector", "superconcentric"),
+                                featureTypes = c("subsector", "subconcentric", "supersector", "superconcentric"),
                                 k = 5) {
 
   . <- NULL
@@ -76,7 +76,7 @@ GenerateFeatureData <- function(me,
                     "segment_id", "sample_id", area_id = "concentric_id")
     # modify the area_id column
     subconcentric <- subconcentric %>%
-      dplyr::mutate(area_id = vapply(.data$area_id, modify_area_id, FUN.VALUE = "character")) # switched from sapply to vapply
+      dplyr::mutate(area_id = vapply(.data$area_id, modify_area_id, FUN.VALUE = "character"))
   } else {
     subconcentric <- NULL
   }
@@ -91,15 +91,20 @@ GenerateFeatureData <- function(me,
                     "segment_id", "sample_id", area_id = "concentric_id")
     # Modify the area_id column for each table
     superconcentric <- superconcentric %>%
-      dplyr::mutate(area_id = vapply(.data$area_id, modify_area_id, FUN.VALUE = "character")) # switched from sapply to vapply
+      dplyr::mutate(area_id = vapply(.data$area_id, modify_area_id, FUN.VALUE = "character"))
   } else {
     superconcentric <- NULL
   }
 
-  featureData <- sapply(featureTypes, get, simplify = FALSE,
-                        envir = environment(),
-                        # FUN.VALUE = "list"
-                        ) # changed from sapply to vapply # changed back
+  # featureData <- sapply(featureTypes, get, simplify = FALSE,
+  #                       envir = environment(),
+  #                       # FUN.VALUE = "list"
+  #                       ) # changed from sapply to vapply # replaced with below
+
+  featureData <- list(subsector = subsector,
+                      subconcentric = subconcentric,
+                      supersector = supersector,
+                      superconcentric = superconcentric)[featureTypes]
 
   return(featureData)
 }
