@@ -1,15 +1,24 @@
-# SpatialFeatures
-
-An R package to incorprate features from molecule-resolved spatial transcriptomics data.
-
-The usage instructions for the package can be found in the vignettes folder.
+# SpatialFeatures: Entropy-based subcellular and supercellular features for molecule-resolved spatial omics datasets
 
 ## Installation
 
-You can install the SpatialFeatures from
-[GitHub](https://github.com/SydneyBioX/SpatialFeatures) with:
+Install `SpatialFeatures` via Bioconductor
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("SydneyBioX/SpatialFeatures")
+library(BiocManager)
+BiocManager::install("SpatialFeatures")
 ```
+
+Install the Github version of SpatialFeatures
+
+``` r
+BiocManager::install("SydneyBioX/SpatialFeatures")
+```
+
+## Vignette
+
+You can find the vignette showing how SpatialFeatures can be used with molecule-resolved spatial omics datasets.
+
+## Contact
+
+shila.ghazanfar \<at\> sydney.edu.au.
