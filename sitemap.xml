@@ -9,9 +9,11 @@
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/EntropyMatrix.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/EntropySingleCellExperiment.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/GenerateFeatureData.html</loc></url>
+<url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/SpatialFeatures-package.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/annuli_counts.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/calculate_centroids.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/calculate_entropy.html</loc></url>
+<url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/check_if_me_boundaries.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/compute_cell_entropy.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/countsprop.html</loc></url>
 <url><loc>https://sydneybiox.github.io/SpatialFeatures/reference/create_scaled_df_sub.html</loc></url>
