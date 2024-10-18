@@ -31,6 +31,11 @@ Suggests:
     ggplot2,
     BiocStyle
 VignetteBuilder: knitr
-biocViews: Spatial, GeneExpression
+biocViews: GeneExpression,
+    FeatureExtraction,
+    Spatial,
+    GenePrediction,
+    CellBiology,
+    Preprocessing
 URL: https://sydneybiox.github.io/SpatialFeatures/
 BugReports: https://github.com/sydneybiox/SpatialFeatures/issues
