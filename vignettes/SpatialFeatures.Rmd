@@ -88,7 +88,7 @@ me
 
 ## Draw the Feature Boundary Plots
 
-Visualize the spatial molecule and cell boundary map with SpatialFeature boundaries.
+Visualize the spatial molecule and cell boundary map with SpatialFeatures boundaries.
 ```{r}
 ggplot_me() +
   # add molecule points and colour by feature name
@@ -155,12 +155,25 @@ se
 ```
 
 ## Inspect the SpatialFeatures SingleCellExperiment Object
-Check the structure and content of the SingleCellExperiment object:
+Check the structure and content of the SingleCellExperiment object. This is a 
+SingleCellExperiment with four assays corresponding to the different types of 
+features that have been extracted.
 ```{r}
 se
 colData(se)
-rowData(se)
 ```
+Alternatively, we could use the `concatenateFeatures` argument to extract out
+all features as a single assay, as shown below. In this case, the type of 
+feature is recorded in the `rowData` of the `SingleCellExperiment` object.
+
+```{r}
+se_concat = EntropySingleCellExperiment(ent, me,
+                                        includeCounts = TRUE,
+                                        concatenateFeatures = TRUE)
+se_concat
+rowData(se_concat)
+```
+
 
 # Finish
 
