@@ -27,6 +27,8 @@ EntropyMatrix <- function(me, featureTypes, nCores = 1, ...) {
   #   stop("Invalid assayName(s) provided!")
   # }
 
+  check_if_me_boundaries(me)
+
   # Generate a list of entropy matrices
   entropy_matrices <- lapply(featureTypes, function(assay) {
     counts_matrix <- CountsMatrix(me = me,

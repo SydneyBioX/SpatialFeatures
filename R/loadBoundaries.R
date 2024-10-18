@@ -26,6 +26,8 @@
 #' me
 loadBoundaries <- function(me,...) {
 
+  check_if_me_boundaries(me)
+
   featureData <- GenerateFeatureData(me, ...)
 
   featureData <- lapply(featureData,

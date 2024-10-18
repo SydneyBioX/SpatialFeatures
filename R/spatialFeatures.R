@@ -45,6 +45,9 @@ spatialFeatures <- function(me,
                             concatenateFeatures = FALSE,
                             ...) {
 
+  # step 0 check me is valid, contains boundaries assays
+  check_if_me_boundaries(me)
+
   # step 1 load new boundaries
   me <- loadBoundaries(me, k = k, ...)
 

@@ -32,6 +32,8 @@ EntropySingleCellExperiment <- function(df_list,
                                         concatenateFeatures = FALSE,
                                         nCores = 1) {
 
+  check_if_me_boundaries(me)
+
   # 1. Assay Data: Using countMolecules function to get assay data.
   # Creating the assay_data
   assay_data <- make_assay_data(df_list,
