@@ -2,14 +2,14 @@
 #'
 #' @description
 #' This function computes the entropy of a counts matrix from a
-#' MoleculeExperiment object based on the given assay type.
+#' \linkS4class{MoleculeExperiment} object based on the given assay type.
 #'
-#' @param me A Molecule Experiment object.
+#' @param me A MoleculeExperiment object.
 #' @param featureTypes A character string specifying the feature type.
 #' Supported values include
 #' "subsector", "subconcentric", "supersector", and "superconcentric".
 #' @param nCores Number of cores
-#' @param ... arguments passing to CountsMatrix
+#' @param ... arguments passing to \code{\link{CountsMatrix}}
 #'
 #' @return A matrix representing the entropy values corresponding to
 #' the given assay type.

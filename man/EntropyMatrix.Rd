@@ -7,7 +7,7 @@
 EntropyMatrix(me, featureTypes, nCores = 1, ...)
 }
 \arguments{
-\item{me}{A Molecule Experiment object.}
+\item{me}{A MoleculeExperiment object.}
 
 \item{featureTypes}{A character string specifying the feature type.
 Supported values include
@@ -15,7 +15,7 @@ Supported values include
 
 \item{nCores}{Number of cores}
 
-\item{...}{arguments passing to CountsMatrix}
+\item{...}{arguments passing to \code{\link{CountsMatrix}}}
 }
 \value{
 A matrix representing the entropy values corresponding to
@@ -23,7 +23,7 @@ the given assay type.
 }
 \description{
 This function computes the entropy of a counts matrix from a
-MoleculeExperiment object based on the given assay type.
+\linkS4class{MoleculeExperiment} object based on the given assay type.
 }
 \examples{
 data(example_me)

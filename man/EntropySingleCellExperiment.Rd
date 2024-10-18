@@ -15,13 +15,13 @@ EntropySingleCellExperiment(
 \arguments{
 \item{df_list}{A list of data frames, each containing assay data.}
 
-\item{me}{A Molecule Experiment object.}
+\item{me}{A \linkS4class{MoleculeExperiment} object.}
 
 \item{includeCounts}{logical (default FALSE) whether to include gene
 counts as features}
 
 \item{concatenateFeatures}{logical whether to concatenate all the features
-into a single assay (default FALSE). If FALSE the output SE object has
+into a single assay (default FALSE). If FALSE the output SCE object has
 multiple assays}
 
 \item{nCores}{Number of cores (default 1)}
@@ -31,8 +31,8 @@ A SingleCellExperiment object.
 }
 \description{
 This function takes a list of data frames and a Molecule Experiment object
-and constructs a SingleCellExperiment object with the specified data
-structure.
+and constructs a \linkS4class{SingleCellExperiment} object with the
+specified data structure.
 }
 \examples{
 data(example_me)

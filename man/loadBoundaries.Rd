@@ -2,23 +2,23 @@
 % Please edit documentation in R/loadBoundaries.R
 \name{loadBoundaries}
 \alias{loadBoundaries}
-\title{Load Boundaries to Molecule Experiment Object}
+\title{Load Boundaries to MoleculeExperiment Object}
 \usage{
 loadBoundaries(me, ...)
 }
 \arguments{
 \item{me}{A MoleculeExperiment (ME) object}
 
-\item{...}{arguments passed to GenerateFeatureData}
+\item{...}{arguments passed to \code{\link{GenerateFeatureData}}}
 }
 \value{
-An enriched Molecule Experiment (ME) object that includes boundary
+An enriched MoleculeExperiment (ME) object that includes boundary
 information for the supported assays.
 }
 \description{
-This function takes a Molecule Experiment (ME) object as input and enriches
-it with boundary data from a variety of assays. The currently supported
-assays are:
+This function takes a \linkS4class{MoleculeExperiment} (ME) object as input
+and enriches it with boundary data from a variety of assays. The currently
+supported assays are:
 \itemize{
 \item Sub-sector polygons
 \item Sub-concentric polygons

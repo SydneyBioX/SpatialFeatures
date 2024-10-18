@@ -1,9 +1,9 @@
-#' Load Boundaries to Molecule Experiment Object
+#' Load Boundaries to MoleculeExperiment Object
 #'
 #' @description
-#' This function takes a Molecule Experiment (ME) object as input and enriches
-#' it with boundary data from a variety of assays. The currently supported
-#' assays are:
+#' This function takes a \linkS4class{MoleculeExperiment} (ME) object as input
+#' and enriches it with boundary data from a variety of assays. The currently
+#' supported assays are:
 #'
 #' - Sub-sector polygons
 #' - Sub-concentric polygons
@@ -14,8 +14,8 @@
 #' information, and updates the original ME object with this new data.
 #'
 #' @param me A MoleculeExperiment (ME) object
-#' @param ... arguments passed to GenerateFeatureData
-#' @return An enriched Molecule Experiment (ME) object that includes boundary
+#' @param ... arguments passed to \code{\link{GenerateFeatureData}}
+#' @return An enriched MoleculeExperiment (ME) object that includes boundary
 #' information for the supported assays.
 #' @importFrom MoleculeExperiment dataframeToMEList
 #' @importFrom MoleculeExperiment boundaries

@@ -15,18 +15,18 @@ annuli_counts <- function(mat) {
   return(cts_new)
 }
 
-#' Extract Counts Matrix from Molecule Experiment based on Assay Type
+#' Extract Counts Matrix from MoleculeExperiment based on Assay Type
 #'
 #' @description
-#' This function retrieves a counts matrix from a Molecule Experiment object
+#' This function retrieves a counts matrix from a MoleculeExperiment object
 #' based on the given assay type.
 #'
-#' @param me A Molecule Experiment object.
+#' @param me A MoleculeExperiment object.
 #' @param assayName A character string indicating the assay type. Supported
 #' values include "sub-sector", "sub-concentric", "sub-combo",
 #' "super-concentric", and "super-combo".
 #' @param nCores Number of cores for parallel processing (default 1)
-#' @param ... arguments passing to MoleculeExperiment::countMolecules
+#' @param ... arguments passing to `MoleculeExperiment::countMolecules`
 #'
 #' @return A counts matrix corresponding to the specified assay type.
 #' @importFrom MoleculeExperiment countMolecules

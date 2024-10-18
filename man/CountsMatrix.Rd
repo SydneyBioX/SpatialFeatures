@@ -2,12 +2,12 @@
 % Please edit documentation in R/EntropyMatrix_utils.R
 \name{CountsMatrix}
 \alias{CountsMatrix}
-\title{Extract Counts Matrix from Molecule Experiment based on Assay Type}
+\title{Extract Counts Matrix from MoleculeExperiment based on Assay Type}
 \usage{
 CountsMatrix(me, assayName, nCores = 1, ...)
 }
 \arguments{
-\item{me}{A Molecule Experiment object.}
+\item{me}{A MoleculeExperiment object.}
 
 \item{assayName}{A character string indicating the assay type. Supported
 values include "sub-sector", "sub-concentric", "sub-combo",
@@ -15,13 +15,13 @@ values include "sub-sector", "sub-concentric", "sub-combo",
 
 \item{nCores}{Number of cores for parallel processing (default 1)}
 
-\item{...}{arguments passing to MoleculeExperiment::countMolecules}
+\item{...}{arguments passing to \code{MoleculeExperiment::countMolecules}}
 }
 \value{
 A counts matrix corresponding to the specified assay type.
 }
 \description{
-This function retrieves a counts matrix from a Molecule Experiment object
+This function retrieves a counts matrix from a MoleculeExperiment object
 based on the given assay type.
 }
 \examples{

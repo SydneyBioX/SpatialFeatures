@@ -5,7 +5,7 @@
 \alias{me}
 \title{Example MoleculeExperiment data}
 \format{
-A \code{MoleculeExperiment} object.
+A \linkS4class{MoleculeExperiment} object.
 }
 \usage{
 data(example_me, package = 'SpatialFeatures')

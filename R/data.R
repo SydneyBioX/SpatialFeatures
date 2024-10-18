@@ -2,5 +2,5 @@
 #' @description A tiny object containing a few cells and molecules
 #' @usage data(example_me, package = 'SpatialFeatures')
 #'
-#' @format A `MoleculeExperiment` object.
+#' @format A \linkS4class{MoleculeExperiment} object.
 "me"

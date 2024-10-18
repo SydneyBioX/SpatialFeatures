@@ -2,7 +2,7 @@
 % Please edit documentation in R/spatialFeatures.R
 \name{spatialFeatures}
 \alias{spatialFeatures}
-\title{Calculate SpatialFeatures}
+\title{Calculate SpatialFeatures from a MoleculeExperiment object}
 \usage{
 spatialFeatures(
   me,
@@ -33,15 +33,17 @@ counts as features}
 into a single assay (default FALSE). If FALSE the output SE object has
 multiple assays}
 
-\item{...}{arguments passed to loadBoundaries and EntropyMatrix}
+\item{...}{arguments passed to \code{\link{loadBoundaries}} and
+\code{\link{EntropyMatrix}}}
 }
 \value{
 A SingleCellExperiment object containing a spatialFeatures assay
 and cell-level colData
 }
 \description{
-This function takes a MoleculeExperiment (ME) object as input and calculates
-new molecule-based spatial features according to the following segmentations:
+This function takes a \linkS4class{MoleculeExperiment} (ME) object as input
+and calculates new molecule-based spatial features according to the
+following segmentations:
 \itemize{
 \item Sub-sector polygons
 \item Sub-concentric polygons
@@ -49,10 +51,10 @@ new molecule-based spatial features according to the following segmentations:
 \item Super-concentric polygons
 }
 
-The function has 3 key steps, 1. adds new boundaries to the ME object
+The function has 3 key steps: 1. adds new boundaries to the ME object
 according to the subcellular and supercellular segmentations, 2. calculates
 entropy for each of the cell and featureType combinations, and 3. combines
-the entropy values into a SingleCellExperiment object.
+the entropy values into a \linkS4class{SingleCellExperiment} object.
 }
 \examples{
 data(example_me)

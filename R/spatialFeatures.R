@@ -1,18 +1,19 @@
-#' Calculate SpatialFeatures
+#' Calculate SpatialFeatures from a MoleculeExperiment object
 #'
 #' @description
-#' This function takes a MoleculeExperiment (ME) object as input and calculates
-#' new molecule-based spatial features according to the following segmentations:
+#' This function takes a \linkS4class{MoleculeExperiment} (ME) object as input
+#' and calculates new molecule-based spatial features according to the
+#' following segmentations:
 #'
 #' - Sub-sector polygons
 #' - Sub-concentric polygons
 #' - Super-sector polygons
 #' - Super-concentric polygons
 #'
-#' The function has 3 key steps, 1. adds new boundaries to the ME object
+#' The function has 3 key steps: 1. adds new boundaries to the ME object
 #' according to the subcellular and supercellular segmentations, 2. calculates
 #' entropy for each of the cell and featureType combinations, and 3. combines
-#' the entropy values into a SingleCellExperiment object.
+#' the entropy values into a \linkS4class{SingleCellExperiment} object.
 #'
 #' @param me A MoleculeExperiment (ME) object
 #' @param featureTypes A character string specifying the feature type.
@@ -26,7 +27,8 @@
 #' @param concatenateFeatures logical whether to concatenate all the features
 #' into a single assay (default FALSE). If FALSE the output SE object has
 #' multiple assays
-#' @param ... arguments passed to loadBoundaries and EntropyMatrix
+#' @param ... arguments passed to \code{\link{loadBoundaries}} and
+#' \code{\link{EntropyMatrix}}
 #' @return A SingleCellExperiment object containing a spatialFeatures assay
 #' and cell-level colData
 #' @export

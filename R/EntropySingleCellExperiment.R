@@ -1,15 +1,15 @@
 #' Create a SingleCellExperiment Object from a List of Data Frames
 #'
 #' This function takes a list of data frames and a Molecule Experiment object
-#' and constructs a SingleCellExperiment object with the specified data
-#' structure.
+#' and constructs a \linkS4class{SingleCellExperiment} object with the
+#' specified data structure.
 #'
 #' @param df_list A list of data frames, each containing assay data.
-#' @param me A Molecule Experiment object.
+#' @param me A \linkS4class{MoleculeExperiment} object.
 #' @param includeCounts logical (default FALSE) whether to include gene
 #' counts as features
 #' @param concatenateFeatures logical whether to concatenate all the features
-#' into a single assay (default FALSE). If FALSE the output SE object has
+#' into a single assay (default FALSE). If FALSE the output SCE object has
 #' multiple assays
 #' @param nCores Number of cores (default 1)
 #'
